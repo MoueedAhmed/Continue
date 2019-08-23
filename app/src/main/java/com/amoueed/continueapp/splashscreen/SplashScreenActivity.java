@@ -1,13 +1,14 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.splashscreen;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.ImageView;
 
+import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.main.MainActivity;
 import com.bumptech.glide.Glide;
 
 public class SplashScreenActivity extends AppCompatActivity {

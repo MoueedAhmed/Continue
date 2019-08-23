@@ -1,4 +1,4 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+
+import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.main.fragment.AboutFragment;
+import com.amoueed.continueapp.main.fragment.FeedbackFragment;
+import com.amoueed.continueapp.main.fragment.NotificationFragment;
+import com.amoueed.continueapp.main.fragment.ResourceFragment;
+import com.amoueed.continueapp.main.fragment.ScheduleFragment;
 
 //Moueed
 
