@@ -14,17 +14,13 @@
             android:id="@+id/nav_resource"
             android:title="@string/menu_resource" />
 
-    </group>
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/menu_about" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="@string/menu_feedback" />
 
-    <item android:title="@string/menu_communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_about"
-                android:title="@string/menu_about" />
-            <item
-                android:id="@+id/nav_feedback"
-                android:title="@string/menu_feedback" />
-        </menu>
-    </item>
+    </group>
 
 </menu>
