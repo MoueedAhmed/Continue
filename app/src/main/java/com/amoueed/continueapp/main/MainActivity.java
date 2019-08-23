@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             Fragment newFragment = new NotificationFragment();
+            setTitle("Notifications");
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.content_frame, newFragment);
             ft.addToBackStack(null);
@@ -92,14 +93,19 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_notification) {
             fragment = new NotificationFragment();
+            setTitle("Notifications");
         } else if (id == R.id.nav_schedule) {
             fragment = new ScheduleFragment();
+            setTitle("Schedule");
         } else if (id == R.id.nav_resource) {
             fragment = new ResourceFragment();
+            setTitle("Resources");
         } else if (id == R.id.nav_about) {
             fragment = new AboutFragment();
+            setTitle("About Us");
         } else if (id == R.id.nav_feedback) {
             fragment = new FeedbackFragment();
+            setTitle("Feedback");
         }
 
         if (fragment != null) {
