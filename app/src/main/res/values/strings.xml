@@ -18,5 +18,9 @@
     <string name="feedback">Feedback</string>
     <string name="send">SEND</string>
     <string name="cancel">CANCEL</string>
+    <string name="about_us">About Us</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dignissim sodales felis, quis condimentum arcu dignissim eget. Ut libero tellus, pellentesque a est a, varius varius ex. Integer faucibus sit amet arcu in feugiat. Morbi ex elit, iaculis at nunc quis, fermentum tincidunt dui. Phasellus id enim ac lacus semper blandit ut in justo. Morbi eget leo lacus. Nam finibus tincidunt dolor vitae finibus. Nullam quis pharetra mauris. Nulla facilisi. Proin ullamcorper, purus ut tristique gravida, est libero rutrum metus, id scelerisque enim mi vitae dui. Duis id odio hendrerit, hendrerit nibh in, dictum lacus. Sed vitae elit faucibus, porttitor metus et, efficitur ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce placerat imperdiet mi.</string>
+    <string name="resources">Resources</string>
+    <string name="schedule">Schedule</string>
 
 </resources>
