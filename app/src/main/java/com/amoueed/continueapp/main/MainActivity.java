@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Continue");
 
         if (savedInstanceState == null) {
             Fragment newFragment = new NotificationFragment();
-            setTitle("Continue");
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.content_frame, newFragment);
-            ft.addToBackStack(null);
+            //ft.addToBackStack(null);
             ft.commit();
         }
 
