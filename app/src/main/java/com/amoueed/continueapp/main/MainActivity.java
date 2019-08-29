@@ -1,16 +1,16 @@
 package com.amoueed.continueapp.main;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 
 import com.amoueed.continueapp.R;
@@ -20,7 +20,6 @@ import com.amoueed.continueapp.main.fragment.NotificationFragment;
 import com.amoueed.continueapp.main.fragment.ResourceFragment;
 import com.amoueed.continueapp.main.fragment.ScheduleFragment;
 
-//Moueed
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity
             Fragment newFragment = new NotificationFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.content_frame, newFragment);
-            //ft.addToBackStack(null);
             ft.commit();
         }
 
