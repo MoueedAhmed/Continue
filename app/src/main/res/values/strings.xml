@@ -22,5 +22,46 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dignissim sodales felis, quis condimentum arcu dignissim eget. Ut libero tellus, pellentesque a est a, varius varius ex. Integer faucibus sit amet arcu in feugiat. Morbi ex elit, iaculis at nunc quis, fermentum tincidunt dui. Phasellus id enim ac lacus semper blandit ut in justo. Morbi eget leo lacus. Nam finibus tincidunt dolor vitae finibus. Nullam quis pharetra mauris. Nulla facilisi. Proin ullamcorper, purus ut tristique gravida, est libero rutrum metus, id scelerisque enim mi vitae dui. Duis id odio hendrerit, hendrerit nibh in, dictum lacus. Sed vitae elit faucibus, porttitor metus et, efficitur ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce placerat imperdiet mi.</string>
     <string name="resources">Resources</string>
     <string name="schedule">Schedule</string>
+    <string name="enrollment_form">Enrollment Form</string>
+    <string name="child_name">Child Name</string>
+    <string name="dob">DOB</string>
+    <string name="mr_number">MR Number</string>
+    <string name="personal">Personal</string>
+    <string name="preference">Preference</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="relation_with_child">Relation with Child</string>
+    <string name="preferred_time">Preferred Time</string>
+
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="mode">
+        <item>Mode</item>
+        <item>Text</item>
+        <item>Audio</item>
+        <item>Video</item>
+    </string-array>
+
+    <string-array name="language">
+        <item>Language</item>
+        <item>English</item>
+        <item>Urdu</item>
+        <item>Roman Urdu</item>
+        <item>Sindhi</item>
+        <item>Roman Sindhi</item>
+    </string-array>
+
+    <string-array name="barrier">
+        <item>Barrier</item>
+        <item>Forget RI due date</item>
+        <item>Lack of awareness for immunization</item>
+        <item>Not permitted by family member</item>
+        <item>Low level of trust for government EPI</item>
+        <item>Religious belief</item>
+        <item>Adverse effects</item>
+    </string-array>
 
 </resources>
