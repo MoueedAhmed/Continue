@@ -31,6 +31,7 @@
     <string name="contact_number">Contact Number</string>
     <string name="relation_with_child">Relation with Child</string>
     <string name="preferred_time">Preferred Time</string>
+    <string name="success">Success</string>
 
     <string-array name="gender">
         <item>Gender</item>
