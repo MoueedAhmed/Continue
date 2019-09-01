@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SuccessActivity extends AppCompatActivity {
@@ -32,6 +33,17 @@ public class SuccessActivity extends AppCompatActivity {
     private String barrier;
     private String preferredTime;
 
+    private TextView child_name_success_tv;
+    private TextView child_dob_success_tv;
+    private TextView child_gender_success_tv;
+    private TextView child_mr_success_tv;
+    private TextView contact_success_tv;
+    private TextView relative_success_tv;
+    private TextView mode_success_tv;
+    private TextView language_success_tv;
+    private TextView barrier_success_tv;
+    private TextView preferred_time_success_tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +62,34 @@ public class SuccessActivity extends AppCompatActivity {
         barrier = intent.getStringExtra(BARRIER);
         preferredTime = intent.getStringExtra(PREFERRED_TIME);
 
-        Toast.makeText(SuccessActivity.this, childName+" "+barrier, Toast.LENGTH_LONG).show();
+        child_name_success_tv = findViewById(R.id.child_name_success_tv);
+        child_name_success_tv.setText("Name: "+childName);
+
+        child_dob_success_tv = findViewById(R.id.child_dob_success_tv);
+        child_dob_success_tv.setText("DOB: "+childDOB);
+
+        child_gender_success_tv = findViewById(R.id.child_gender_success_tv);
+        child_gender_success_tv.setText("Gender: "+childGender);
+
+        child_mr_success_tv = findViewById(R.id.child_mr_success_tv);
+        child_mr_success_tv.setText("MR Number: "+childMR);
+
+        contact_success_tv = findViewById(R.id.contact_success_tv);
+        contact_success_tv.setText("Contact Number: "+contactNo);
+
+        relative_success_tv = findViewById(R.id.relative_success_tv);
+        relative_success_tv.setText("Relation with Child: "+childRelative);
+
+        mode_success_tv = findViewById(R.id.mode_success_tv);
+        mode_success_tv.setText("Mode: "+mode);
+
+        language_success_tv = findViewById(R.id.language_success_tv);
+        language_success_tv.setText("Language: "+language);
+
+        barrier_success_tv = findViewById(R.id.barrier_success_tv);
+        barrier_success_tv.setText("Barrier: "+barrier);
+
+        preferred_time_success_tv = findViewById(R.id.preferred_time_success_tv);
+        preferred_time_success_tv.setText("Preferred Time of Notifications: "+preferredTime);
     }
 }
