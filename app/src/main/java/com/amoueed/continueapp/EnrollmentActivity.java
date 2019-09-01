@@ -48,12 +48,6 @@ public class EnrollmentActivity extends AppCompatActivity{
 
 
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
-        if (false) {
-            return;
-        }
-
-        //showProgressDialog();
 
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -68,7 +62,6 @@ public class EnrollmentActivity extends AppCompatActivity{
                             Toast.makeText(EnrollmentActivity.this, task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                         }
-                        //hideProgressDialog();
                     }
                 });
         // [END create_user_with_email]

@@ -7,16 +7,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.amoueed.continueapp.EnrollmentActivity;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.main.MainActivity;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreenActivity extends AppCompatActivity {
     ImageView titleImage;
     private SplashHandler mSplashHandler = new SplashHandler();
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
 
         try
         {
@@ -38,9 +44,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case TIMER_EXPIRED:
-                    Intent in = new Intent(SplashScreenActivity.this, MainActivity.class);
-                    startActivity(in);
-                    finish();
+                    if(mAuth.getCurrentUser()!=null){
+                        Intent in = new Intent(SplashScreenActivity.this, MainActivity.class);
+                        startActivity(in);
+                        finish();
+                    }else{
+                        Intent in = new Intent(SplashScreenActivity.this, EnrollmentActivity.class);
+                        startActivity(in);
+                        finish();
+                    }
                     break;
 
                 default:
