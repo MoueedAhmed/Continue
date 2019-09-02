@@ -53,6 +53,7 @@ public class EnrollmentActivity extends AppCompatActivity{
     private Spinner language_spinner;
     private Spinner barrier_spinner;
     private TextInputEditText preferred_time_et;
+    private CheckBox terms_checkBox;
 
     private String contactNo;
     private String childName;
@@ -84,6 +85,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         language_spinner = findViewById(R.id.language_spinner);
         barrier_spinner = findViewById(R.id.barrier_spinner);
         preferred_time_et = findViewById(R.id.preferred_time_et);
+        terms_checkBox = findViewById(R.id.terms_checkBox);
 
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,10 +94,16 @@ public class EnrollmentActivity extends AppCompatActivity{
                 boolean isDataValid = validateData();
 
                 if (isDataValid){
-                    progressDialog.setMessage("Processing...");
-                    progressDialog.show();
-                    //getting mobile number and create user by setting default password "RaoMoueedAhmed1"
-                    createAccount(contactNo+"@continue.com",PASSWORD);
+                    if(terms_checkBox.isChecked()){
+                        progressDialog.setMessage("Processing...");
+                        progressDialog.show();
+                        //getting mobile number and create user by setting default password "RaoMoueedAhmed1"
+                        createAccount(contactNo+"@continue.com",PASSWORD);
+                    }else{
+                        Toast.makeText(EnrollmentActivity.this,
+                                "Accept terms and Conditions to continue registration",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
