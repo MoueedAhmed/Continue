@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.amoueed.continueapp.main.MainActivity;
+import com.amoueed.continueapp.splashscreen.SplashScreenActivity;
 
 public class SuccessActivity extends AppCompatActivity {
 
@@ -43,6 +48,8 @@ public class SuccessActivity extends AppCompatActivity {
     private TextView language_success_tv;
     private TextView barrier_success_tv;
     private TextView preferred_time_success_tv;
+    private Button continue_success_btn;
+    private Button exit_success_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,25 @@ public class SuccessActivity extends AppCompatActivity {
         language = intent.getStringExtra(LANGUAGE);
         barrier = intent.getStringExtra(BARRIER);
         preferredTime = intent.getStringExtra(PREFERRED_TIME);
+
+        continue_success_btn = findViewById(R.id.continue_success_btn);
+        exit_success_btn = findViewById(R.id.exit_success_btn);
+
+        continue_success_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(SuccessActivity.this, MainActivity.class);
+                startActivity(in);
+                finish();
+            }
+        });
+
+        exit_success_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         child_name_success_tv = findViewById(R.id.child_name_success_tv);
         child_name_success_tv.setText("Name: "+childName);
