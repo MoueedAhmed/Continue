@@ -6,12 +6,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
+
+import com.amoueed.continueapp.EnrollmentActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.main.fragment.AboutFragment;
@@ -19,10 +22,15 @@ import com.amoueed.continueapp.main.fragment.FeedbackFragment;
 import com.amoueed.continueapp.main.fragment.NotificationFragment;
 import com.amoueed.continueapp.main.fragment.ResourceFragment;
 import com.amoueed.continueapp.main.fragment.ScheduleFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        if(user!=null){
+            Toast.makeText(MainActivity.this, user.getUid(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
