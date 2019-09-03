@@ -279,6 +279,10 @@ public class EnrollmentActivity extends AppCompatActivity {
         }
 
         childGender = gender_spinner.getSelectedItem().toString();
+        if (childGender.equals("Gender")) {
+            Toast.makeText(EnrollmentActivity.this, "Error: Select Gender", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         childMR = child_mr_et.getText().toString().trim();
         if (TextUtils.isEmpty(childMR)) {
@@ -299,10 +303,22 @@ public class EnrollmentActivity extends AppCompatActivity {
         }
 
         mode = mode_spinner.getSelectedItem().toString();
+        if (mode.equals("Mode")) {
+            Toast.makeText(EnrollmentActivity.this, "Error: Select Mode", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         language = language_spinner.getSelectedItem().toString();
+        if (language.equals("Language")) {
+            Toast.makeText(EnrollmentActivity.this, "Error: Select language", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         barrier = barrier_spinner.getSelectedItem().toString();
+        if (barrier.equals("Barrier")) {
+            Toast.makeText(EnrollmentActivity.this, "Error: Select barrier", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         preferredTime = preferred_time_et.getText().toString().trim();
         if (TextUtils.isEmpty(preferredTime)) {
