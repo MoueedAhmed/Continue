@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.amoueed.continueapp.main.MainActivity;
@@ -30,7 +32,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class EnrollmentActivity extends AppCompatActivity{
+public class EnrollmentActivity extends AppCompatActivity {
 
     private static final String TAG = "EnrollmentActivity";
     private static final String PASSWORD = "RaoMoueedAhmed1";
@@ -73,6 +75,11 @@ public class EnrollmentActivity extends AppCompatActivity{
     private String preferredTime;
 
     private Calendar myCalendar;
+    private Calendar timeCalender;
+    private int CalendarHour, CalendarMinute;
+    private TimePickerDialog timepickerdialog;
+    String format;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,13 +107,13 @@ public class EnrollmentActivity extends AppCompatActivity{
 
                 boolean isDataValid = validateData();
 
-                if (isDataValid){
-                    if(terms_checkBox.isChecked()){
+                if (isDataValid) {
+                    if (terms_checkBox.isChecked()) {
                         progressDialog.setMessage("Processing...");
                         progressDialog.show();
                         //getting mobile number and create user by setting default password "RaoMoueedAhmed1"
-                        createAccount(contactNo+"@continue.com",PASSWORD);
-                    }else{
+                        createAccount(contactNo + "@continue.com", PASSWORD);
+                    } else {
                         Toast.makeText(EnrollmentActivity.this,
                                 "Accept terms and Conditions to continue registration",
                                 Toast.LENGTH_LONG).show();
@@ -116,6 +123,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         });
 
         datePickerSetter();
+        timePickerSetter();
     }
 
     private void datePickerSetter() {
@@ -150,7 +158,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         child_dob_et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b){
+                if (b) {
                     // TODO Auto-generated method stub
                     new DatePickerDialog(EnrollmentActivity.this, date, myCalendar
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -163,20 +171,109 @@ public class EnrollmentActivity extends AppCompatActivity{
     private void updateLabel() {
         String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         child_dob_et.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void timePickerSetter() {
+        timeCalender = Calendar.getInstance();
+
+        preferred_time_et.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                timeCalender = Calendar.getInstance();
+                CalendarHour = timeCalender.get(Calendar.HOUR_OF_DAY);
+                CalendarMinute = timeCalender.get(Calendar.MINUTE);
+
+                timepickerdialog = new TimePickerDialog(EnrollmentActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                if (hourOfDay == 0) {
+
+                                    hourOfDay += 12;
+
+                                    format = "AM";
+                                } else if (hourOfDay == 12) {
+
+                                    format = "PM";
+
+                                } else if (hourOfDay > 12) {
+
+                                    hourOfDay -= 12;
+
+                                    format = "PM";
+
+                                } else {
+
+                                    format = "AM";
+                                }
+
+                                preferred_time_et.setText(hourOfDay + ":" + minute + " " +format);
+                            }
+                        }, CalendarHour, CalendarMinute, false);
+                timepickerdialog.show();
+            }
+        });
+
+        preferred_time_et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    timeCalender = Calendar.getInstance();
+                    CalendarHour = timeCalender.get(Calendar.HOUR_OF_DAY);
+                    CalendarMinute = timeCalender.get(Calendar.MINUTE);
+
+                    timepickerdialog = new TimePickerDialog(EnrollmentActivity.this,
+                            new TimePickerDialog.OnTimeSetListener() {
+
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay,
+                                                      int minute) {
+
+                                    if (hourOfDay == 0) {
+
+                                        hourOfDay += 12;
+
+                                        format = "AM";
+                                    } else if (hourOfDay == 12) {
+
+                                        format = "PM";
+
+                                    } else if (hourOfDay > 12) {
+
+                                        hourOfDay -= 12;
+
+                                        format = "PM";
+
+                                    } else {
+
+                                        format = "AM";
+                                    }
+
+                                    preferred_time_et.setText(hourOfDay + ":" + minute + " " +format);
+                                }
+                            }, CalendarHour, CalendarMinute, false);
+                    timepickerdialog.show();
+                }
+            }
+        });
     }
 
     private boolean validateData() {
         //validation of data
         childName = child_name_et.getText().toString().trim();
-        if(TextUtils.isEmpty(childName)){
+        if (TextUtils.isEmpty(childName)) {
             child_name_et.setError("Required!");
             return false;
         }
 
         childDOB = child_dob_et.getText().toString().trim();
-        if(TextUtils.isEmpty(childDOB)){
+        if (TextUtils.isEmpty(childDOB)) {
             child_dob_et.setError("Required!");
             return false;
         }
@@ -184,19 +281,19 @@ public class EnrollmentActivity extends AppCompatActivity{
         childGender = gender_spinner.getSelectedItem().toString();
 
         childMR = child_mr_et.getText().toString().trim();
-        if(TextUtils.isEmpty(childMR)){
+        if (TextUtils.isEmpty(childMR)) {
             child_mr_et.setError("Required!");
             return false;
         }
 
         contactNo = contact_et.getText().toString().trim();
-        if(TextUtils.isEmpty(contactNo)){
+        if (TextUtils.isEmpty(contactNo)) {
             contact_et.setError("Required!");
             return false;
         }
 
         childRelative = child_relation_et.getText().toString().trim();
-        if(TextUtils.isEmpty(childRelative)){
+        if (TextUtils.isEmpty(childRelative)) {
             child_relation_et.setError("Required!");
             return false;
         }
@@ -208,7 +305,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         barrier = barrier_spinner.getSelectedItem().toString();
 
         preferredTime = preferred_time_et.getText().toString().trim();
-        if(TextUtils.isEmpty(preferredTime)){
+        if (TextUtils.isEmpty(preferredTime)) {
             preferred_time_et.setError("Required!");
             return false;
         }
@@ -226,16 +323,16 @@ public class EnrollmentActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent in = new Intent(EnrollmentActivity.this, SuccessActivity.class)
-                                    .putExtra(CHILD_NAME,childName)
-                                    .putExtra(CHILD_DOB,childDOB)
-                                    .putExtra(CHILD_GENDER,childGender)
-                                    .putExtra(CHILD_MR,childMR)
-                                    .putExtra(CONTACT_NO,contactNo)
-                                    .putExtra(CHILD_RELATIVE,childRelative)
-                                    .putExtra(MODE,mode)
-                                    .putExtra(LANGUAGE,language)
-                                    .putExtra(BARRIER,barrier)
-                                    .putExtra(PREFERRED_TIME,preferredTime);
+                                    .putExtra(CHILD_NAME, childName)
+                                    .putExtra(CHILD_DOB, childDOB)
+                                    .putExtra(CHILD_GENDER, childGender)
+                                    .putExtra(CHILD_MR, childMR)
+                                    .putExtra(CONTACT_NO, contactNo)
+                                    .putExtra(CHILD_RELATIVE, childRelative)
+                                    .putExtra(MODE, mode)
+                                    .putExtra(LANGUAGE, language)
+                                    .putExtra(BARRIER, barrier)
+                                    .putExtra(PREFERRED_TIME, preferredTime);
                             progressDialog.dismiss();
                             startActivity(in);
                             finish();
