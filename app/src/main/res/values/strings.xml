@@ -44,6 +44,7 @@
         <item>Mode</item>
         <item>Text</item>
         <item>Audio</item>
+        <item>Pictures</item>
         <item>Video</item>
     </string-array>
 
