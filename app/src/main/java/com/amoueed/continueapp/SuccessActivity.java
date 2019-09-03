@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.amoueed.continueapp.main.MainActivity;
 import com.amoueed.continueapp.splashscreen.SplashScreenActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,6 +56,7 @@ public class SuccessActivity extends AppCompatActivity {
     private Button exit_success_btn;
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,36 +96,71 @@ public class SuccessActivity extends AppCompatActivity {
         });
 
         child_name_success_tv = findViewById(R.id.child_name_success_tv);
-        child_name_success_tv.setText("Name: "+childName);
+        child_name_success_tv.setText("Name: " + childName);
 
         child_dob_success_tv = findViewById(R.id.child_dob_success_tv);
-        child_dob_success_tv.setText("DOB: "+childDOB);
+        child_dob_success_tv.setText("DOB: " + childDOB);
 
         child_gender_success_tv = findViewById(R.id.child_gender_success_tv);
-        child_gender_success_tv.setText("Gender: "+childGender);
+        child_gender_success_tv.setText("Gender: " + childGender);
 
         child_mr_success_tv = findViewById(R.id.child_mr_success_tv);
-        child_mr_success_tv.setText("MR Number: "+childMR);
+        child_mr_success_tv.setText("MR Number: " + childMR);
 
         contact_success_tv = findViewById(R.id.contact_success_tv);
-        contact_success_tv.setText("Contact Number: "+contactNo);
+        contact_success_tv.setText("Contact Number: " + contactNo);
 
         relative_success_tv = findViewById(R.id.relative_success_tv);
-        relative_success_tv.setText("Relation with Child: "+childRelative);
+        relative_success_tv.setText("Relation with Child: " + childRelative);
 
         mode_success_tv = findViewById(R.id.mode_success_tv);
-        mode_success_tv.setText("Mode: "+mode);
+        mode_success_tv.setText("Mode: " + mode);
 
         language_success_tv = findViewById(R.id.language_success_tv);
-        language_success_tv.setText("Language: "+language);
+        language_success_tv.setText("Language: " + language);
 
         barrier_success_tv = findViewById(R.id.barrier_success_tv);
-        barrier_success_tv.setText("Barrier: "+barrier);
+        barrier_success_tv.setText("Barrier: " + barrier);
 
         preferred_time_success_tv = findViewById(R.id.preferred_time_success_tv);
-        preferred_time_success_tv.setText("Preferred Time of Notifications: "+preferredTime);
+        preferred_time_success_tv.setText("Preferred Time of Notifications: " + preferredTime);
 
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Check auth on Activity start
+        if (mAuth.getCurrentUser() != null) {
+            onAuthSuccess(mAuth.getCurrentUser());
+        }
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
+        // Write new user
+        writeNewChildEnrollment(user.getUid(), username, user.getEmail());
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
+    // [START basic_write]
+    private void writeNewChildEnrollment(String userId, String name, String email) {
+        ChildEnrollment childEnrollment = new ChildEnrollment(childName, childDOB, childGender, childMR, contactNo, childRelative,
+                mode, language, barrier, preferredTime);
+
+        mDatabase.child("enrollments").child(userId).setValue(childEnrollment);
+    }
+    // [END basic_write]
+
 }

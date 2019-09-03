@@ -4,16 +4,16 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class ChildEnrollment {
-    private String childName;
-    private String childDOB;
-    private String childGender;
-    private String childMR;
-    private String contactNo;
-    private String childRelative;
-    private String mode;
-    private String language;
-    private String barrier;
-    private String preferredTime;
+    public String childName;
+    public String childDOB;
+    public String childGender;
+    public String childMR;
+    public String contactNo;
+    public String childRelative;
+    public String mode;
+    public String language;
+    public String barrier;
+    public String preferredTime;
 
     public ChildEnrollment() {
     }
