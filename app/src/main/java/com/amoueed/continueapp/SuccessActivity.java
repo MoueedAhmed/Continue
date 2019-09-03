@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.amoueed.continueapp.main.MainActivity;
 import com.amoueed.continueapp.splashscreen.SplashScreenActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SuccessActivity extends AppCompatActivity {
 
@@ -50,6 +52,8 @@ public class SuccessActivity extends AppCompatActivity {
     private TextView preferred_time_success_tv;
     private Button continue_success_btn;
     private Button exit_success_btn;
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,5 +121,8 @@ public class SuccessActivity extends AppCompatActivity {
 
         preferred_time_success_tv = findViewById(R.id.preferred_time_success_tv);
         preferred_time_success_tv.setText("Preferred Time of Notifications: "+preferredTime);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 }
