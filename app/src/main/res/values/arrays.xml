@@ -14,15 +14,6 @@
         <item>Audio Two Way</item>
     </string-array>
 
-<!--    <string-array name="language">-->
-<!--        <item>Language</item>-->
-<!--        <item>English</item>-->
-<!--        <item>Urdu</item>-->
-<!--        <item>Roman Urdu</item>-->
-<!--        <item>Sindhi</item>-->
-<!--        <item>Roman Sindhi</item>-->
-<!--    </string-array>-->
-
     <string-array name="barrier">
         <item>Barrier</item>
         <item>Forget RI due date</item>
