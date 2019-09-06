@@ -60,7 +60,7 @@ public class EnrollmentActivity extends AppCompatActivity {
     private Spinner mode_spinner;
     private Spinner language_spinner;
     private Spinner barrier_spinner;
-    private TextInputEditText preferred_time_et;
+    private Spinner preferred_time_spinner;
     private CheckBox terms_checkBox;
 
     private String contactNo;
@@ -98,7 +98,7 @@ public class EnrollmentActivity extends AppCompatActivity {
         mode_spinner = findViewById(R.id.mode_spinner);
         language_spinner = findViewById(R.id.language_spinner);
         barrier_spinner = findViewById(R.id.barrier_spinner);
-        preferred_time_et = findViewById(R.id.preferred_time_et);
+        preferred_time_spinner = findViewById(R.id.preferred_time_spinner);
         terms_checkBox = findViewById(R.id.terms_checkBox);
 
         register_button.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +123,6 @@ public class EnrollmentActivity extends AppCompatActivity {
         });
 
         datePickerSetter();
-        timePickerSetter();
     }
 
     private void datePickerSetter() {
@@ -172,96 +171,6 @@ public class EnrollmentActivity extends AppCompatActivity {
         String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         child_dob_et.setText(sdf.format(myCalendar.getTime()));
-    }
-
-    private void timePickerSetter() {
-        timeCalender = Calendar.getInstance();
-
-        preferred_time_et.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                timeCalender = Calendar.getInstance();
-                CalendarHour = timeCalender.get(Calendar.HOUR_OF_DAY);
-                CalendarMinute = timeCalender.get(Calendar.MINUTE);
-
-                timepickerdialog = new TimePickerDialog(EnrollmentActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                                  int minute) {
-
-                                if (hourOfDay == 0) {
-
-                                    hourOfDay += 12;
-
-                                    format = "AM";
-                                } else if (hourOfDay == 12) {
-
-                                    format = "PM";
-
-                                } else if (hourOfDay > 12) {
-
-                                    hourOfDay -= 12;
-
-                                    format = "PM";
-
-                                } else {
-
-                                    format = "AM";
-                                }
-
-                                preferred_time_et.setText(hourOfDay + ":" + minute + " " +format);
-                            }
-                        }, CalendarHour, CalendarMinute, false);
-                timepickerdialog.show();
-            }
-        });
-
-        preferred_time_et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if(b){
-                    timeCalender = Calendar.getInstance();
-                    CalendarHour = timeCalender.get(Calendar.HOUR_OF_DAY);
-                    CalendarMinute = timeCalender.get(Calendar.MINUTE);
-
-                    timepickerdialog = new TimePickerDialog(EnrollmentActivity.this,
-                            new TimePickerDialog.OnTimeSetListener() {
-
-                                @Override
-                                public void onTimeSet(TimePicker view, int hourOfDay,
-                                                      int minute) {
-
-                                    if (hourOfDay == 0) {
-
-                                        hourOfDay += 12;
-
-                                        format = "AM";
-                                    } else if (hourOfDay == 12) {
-
-                                        format = "PM";
-
-                                    } else if (hourOfDay > 12) {
-
-                                        hourOfDay -= 12;
-
-                                        format = "PM";
-
-                                    } else {
-
-                                        format = "AM";
-                                    }
-
-                                    preferred_time_et.setText(hourOfDay + ":" + minute + " " +format);
-                                }
-                            }, CalendarHour, CalendarMinute, false);
-                    timepickerdialog.show();
-                }
-            }
-        });
     }
 
     private boolean validateData() {
@@ -320,11 +229,13 @@ public class EnrollmentActivity extends AppCompatActivity {
             return false;
         }
 
-        preferredTime = preferred_time_et.getText().toString().trim();
-        if (TextUtils.isEmpty(preferredTime)) {
-            preferred_time_et.setError("Required!");
+        preferredTime = preferred_time_spinner.getSelectedItem().toString();
+        if (preferredTime.equals("Preferred Notification Time")) {
+            Toast.makeText(EnrollmentActivity.this,
+                    "Error: Select Preferred Time for Notifications", Toast.LENGTH_LONG).show();
             return false;
         }
+
         return true;
     }
 
