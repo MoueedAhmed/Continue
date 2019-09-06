@@ -48,8 +48,7 @@
             <Spinner
                 android:id="@+id/language_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/language" />
+                android:layout_height="50dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -238,7 +237,7 @@
                 android:id="@+id/preferred_time_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:entries="@array/preferred_time" />
+                android:entries="@array/preferred_time"/>
         </LinearLayout>
 
         <CheckBox

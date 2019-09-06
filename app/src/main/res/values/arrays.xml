@@ -8,20 +8,20 @@
 
     <string-array name="mode">
         <item>Mode</item>
-        <item>Text</item>
-        <item>Audio</item>
-        <item>Pictures</item>
-        <item>Video</item>
+        <item>Text One Way</item>
+        <item>Text Two Way</item>
+        <item>Audio One Way</item>
+        <item>Audio Two Way</item>
     </string-array>
 
-    <string-array name="language">
-        <item>Language</item>
-        <item>English</item>
-        <item>Urdu</item>
-        <item>Roman Urdu</item>
-        <item>Sindhi</item>
-        <item>Roman Sindhi</item>
-    </string-array>
+<!--    <string-array name="language">-->
+<!--        <item>Language</item>-->
+<!--        <item>English</item>-->
+<!--        <item>Urdu</item>-->
+<!--        <item>Roman Urdu</item>-->
+<!--        <item>Sindhi</item>-->
+<!--        <item>Roman Sindhi</item>-->
+<!--    </string-array>-->
 
     <string-array name="barrier">
         <item>Barrier</item>
@@ -38,6 +38,7 @@
         <item>Father</item>
         <item>Mother</item>
     </string-array>
+
     <string-array name="preferred_time">
         <item>Preferred Notification Time</item>
         <item>Morning</item>

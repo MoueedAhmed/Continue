@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -28,7 +30,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -75,10 +79,8 @@ public class EnrollmentActivity extends AppCompatActivity {
     private String preferredTime;
 
     private Calendar myCalendar;
-    private Calendar timeCalender;
-    private int CalendarHour, CalendarMinute;
-    private TimePickerDialog timepickerdialog;
-    String format;
+    private List<String> languageArray;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,53 @@ public class EnrollmentActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 }
+            }
+        });
+
+        mode_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // you need to have a list of data that you want the spinner to display
+                languageArray = new ArrayList<String>();
+
+
+                adapter = new ArrayAdapter<String>(
+                        EnrollmentActivity.this, android.R.layout.simple_spinner_item, languageArray);
+
+                if (mode_spinner.getSelectedItem().toString().equals("Text One Way")
+                        || mode_spinner.getSelectedItem().toString().equals("Text Two Way")) {
+                    languageArray.add("Language");
+                    languageArray.add("English");
+                    languageArray.add("Urdu");
+                    languageArray.add("Sindhi");
+                    languageArray.add("Urdu Roman");
+                    languageArray.add("Sindhi Roman");
+                    adapter.notifyDataSetChanged();
+                } else {
+                    languageArray.add("Language");
+                    languageArray.add("English");
+                    languageArray.add("Urdu");
+                    languageArray.add("Sindhi");
+                    adapter.notifyDataSetChanged();
+                }
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                language_spinner = findViewById(R.id.language_spinner);
+                language_spinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // you need to have a list of data that you want the spinner to display
+                List<String> languageArray = new ArrayList<String>();
+                languageArray.add("Language");
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        EnrollmentActivity.this, android.R.layout.simple_spinner_item, languageArray);
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                language_spinner = findViewById(R.id.language_spinner);
+                language_spinner.setAdapter(adapter);
             }
         });
 
