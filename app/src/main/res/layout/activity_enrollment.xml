@@ -12,24 +12,6 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/spinner_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/child_dob_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/child_dob_container"
-            tools:ignore="UselessParent">
-
-            <Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/gender" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/mode_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -121,7 +103,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relation_container" />
+            app:layout_constraintTop_toBottomOf="@+id/gender_container" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/child_name_container"
@@ -145,13 +127,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/child_dob_container"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:hint="@string/dob"
-            app:layout_constraintEnd_toStartOf="@+id/spinner_container"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/child_name_container">
 
@@ -199,25 +181,46 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/relation_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/gender_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:hint="@string/relation_with_child"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/relation_container"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/child_contact_container">
+            app:layout_constraintTop_toBottomOf="@+id/child_mr_container"
+            tools:ignore="UselessParent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/child_relation_et"
+            <Spinner
+                android:id="@+id/gender_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="50dp"
+                android:entries="@array/gender" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/relation_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/gender_container"
+            app:layout_constraintTop_toBottomOf="@+id/child_mr_container"
+            tools:ignore="UselessParent">
+
+            <Spinner
+                android:id="@+id/relation_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/relation" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/preferred_time_container"

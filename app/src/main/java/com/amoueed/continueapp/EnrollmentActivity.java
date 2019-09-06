@@ -56,7 +56,7 @@ public class EnrollmentActivity extends AppCompatActivity {
     private Spinner gender_spinner;
     private TextInputEditText child_mr_et;
     private TextInputEditText contact_et;
-    private TextInputEditText child_relation_et;
+    private Spinner relation_spinner;
     private Spinner mode_spinner;
     private Spinner language_spinner;
     private Spinner barrier_spinner;
@@ -94,7 +94,7 @@ public class EnrollmentActivity extends AppCompatActivity {
         child_dob_et = findViewById(R.id.child_dob_et);
         gender_spinner = findViewById(R.id.gender_spinner);
         child_mr_et = findViewById(R.id.child_mr_et);
-        child_relation_et = findViewById(R.id.child_relation_et);
+        relation_spinner = findViewById(R.id.relation_spinner);
         mode_spinner = findViewById(R.id.mode_spinner);
         language_spinner = findViewById(R.id.language_spinner);
         barrier_spinner = findViewById(R.id.barrier_spinner);
@@ -296,9 +296,9 @@ public class EnrollmentActivity extends AppCompatActivity {
             return false;
         }
 
-        childRelative = child_relation_et.getText().toString().trim();
-        if (TextUtils.isEmpty(childRelative)) {
-            child_relation_et.setError("Required!");
+        childRelative = relation_spinner.getSelectedItem().toString();
+        if (childRelative.equals("Relation")) {
+            Toast.makeText(EnrollmentActivity.this, "Error: Select Relation", Toast.LENGTH_LONG).show();
             return false;
         }
 
