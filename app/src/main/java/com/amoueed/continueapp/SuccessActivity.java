@@ -128,6 +128,8 @@ public class SuccessActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        //location
+
     }
 
     @Override
