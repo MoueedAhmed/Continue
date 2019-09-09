@@ -33,5 +33,7 @@
     <string name="preferred_time">Preferred Time</string>
     <string name="success">Success</string>
     <string name="summary">Summary</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
 
 </resources>
