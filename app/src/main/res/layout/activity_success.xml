@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toStartOf="@+id/exit_success_btn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/preferred_time_success_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/current_location_success_tv" />
 
         <Button
             android:id="@+id/exit_success_btn"
@@ -157,5 +157,15 @@
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barrier_success_tv" />
+
+        <TextView
+            android:id="@+id/current_location_success_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preferred_time_success_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

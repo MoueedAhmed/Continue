@@ -13,6 +13,8 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,6 +47,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,6 +72,7 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
     private static final String LANGUAGE = "language";
     private static final String BARRIER = "barrier";
     private static final String PREFERRED_TIME = "preferredTime";
+    private static final String CURRENT_LOCATION = "currentLocation";
 
     private Button register_button;
     private FirebaseAuth mAuth;
@@ -113,6 +117,11 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
     private ArrayList<String> permissions = new ArrayList<>();
     // integer for permissions results request
     private static final int ALL_PERMISSIONS_RESULT = 1011;
+
+    private String currentLocation;
+
+    Geocoder geocoder;
+    List<Address> addresses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -381,6 +390,8 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(EnrollmentActivity.this, currentLocation,
+                                    Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent in = new Intent(EnrollmentActivity.this, SuccessActivity.class)
                                     .putExtra(CHILD_NAME, childName)
@@ -392,7 +403,8 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
                                     .putExtra(MODE, mode)
                                     .putExtra(LANGUAGE, language)
                                     .putExtra(BARRIER, barrier)
-                                    .putExtra(PREFERRED_TIME, preferredTime);
+                                    .putExtra(PREFERRED_TIME, preferredTime)
+                                    .putExtra(CURRENT_LOCATION,currentLocation);
                             progressDialog.dismiss();
                             startActivity(in);
                             finish();
@@ -453,15 +465,7 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
-        // Permissions ok, we get last location
-        location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-
-        if (location != null) {
-            Toast.makeText(EnrollmentActivity.this, location.toString(),
-                    Toast.LENGTH_LONG).show();
-        }
-
+        setCurrentLocation();
         startLocationUpdates();
     }
 
@@ -516,7 +520,14 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
                                                         toArray(new String[permissionsRejected.size()]), ALL_PERMISSIONS_RESULT);
                                             }
                                         }
-                                    }).setNegativeButton("Cancel", null).create().show();
+                                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    currentLocation = "Location access not granted by the user";
+                                    Toast.makeText(EnrollmentActivity.this, currentLocation,
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }).create().show();
 
                             return;
                         }
@@ -524,10 +535,32 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
                 } else {
                     if (googleApiClient != null) {
                         googleApiClient.connect();
+                        setCurrentLocation();
+//                        Toast.makeText(EnrollmentActivity.this, currentLocation,
+//                                Toast.LENGTH_LONG).show();
                     }
                 }
 
                 break;
+        }
+    }
+
+    private void setCurrentLocation() {
+        location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        if (location != null) {
+            //geocoding
+            geocoder = new Geocoder(this, Locale.getDefault());
+            // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            try {
+                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = addresses.get(0).getLocality();
+                currentLocation = address + " " + city;
+            } catch (IOException e) {
+                currentLocation = e.toString();
+                Toast.makeText(EnrollmentActivity.this, currentLocation,
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
     //location related methods end

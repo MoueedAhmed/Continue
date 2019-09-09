@@ -28,6 +28,7 @@ public class SuccessActivity extends AppCompatActivity {
     private static final String LANGUAGE = "language";
     private static final String BARRIER = "barrier";
     private static final String PREFERRED_TIME = "preferredTime";
+    private static final String CURRENT_LOCATION = "currentLocation";
 
     private Intent intent;
 
@@ -41,6 +42,7 @@ public class SuccessActivity extends AppCompatActivity {
     private String language;
     private String barrier;
     private String preferredTime;
+    private String currentLocation;
 
     private TextView child_name_success_tv;
     private TextView child_dob_success_tv;
@@ -52,6 +54,7 @@ public class SuccessActivity extends AppCompatActivity {
     private TextView language_success_tv;
     private TextView barrier_success_tv;
     private TextView preferred_time_success_tv;
+    private TextView current_location_success_tv;
     private Button continue_success_btn;
     private Button exit_success_btn;
 
@@ -75,6 +78,7 @@ public class SuccessActivity extends AppCompatActivity {
         language = intent.getStringExtra(LANGUAGE);
         barrier = intent.getStringExtra(BARRIER);
         preferredTime = intent.getStringExtra(PREFERRED_TIME);
+        currentLocation = intent.getStringExtra(CURRENT_LOCATION);
 
         continue_success_btn = findViewById(R.id.continue_success_btn);
         exit_success_btn = findViewById(R.id.exit_success_btn);
@@ -125,10 +129,11 @@ public class SuccessActivity extends AppCompatActivity {
         preferred_time_success_tv = findViewById(R.id.preferred_time_success_tv);
         preferred_time_success_tv.setText("Preferred Time of Notifications: " + preferredTime);
 
+        current_location_success_tv = findViewById(R.id.current_location_success_tv);
+        current_location_success_tv.setText("Current Location: "+ currentLocation);
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        //location
 
     }
 
@@ -159,7 +164,7 @@ public class SuccessActivity extends AppCompatActivity {
     // [START basic_write]
     private void writeNewChildEnrollment(String userId, String name, String email) {
         ChildEnrollment childEnrollment = new ChildEnrollment(childName, childDOB, childGender, childMR, contactNo, childRelative,
-                mode, language, barrier, preferredTime);
+                mode, language, barrier, preferredTime, currentLocation);
 
         mDatabase.child("enrollments").child(userId).setValue(childEnrollment);
     }
