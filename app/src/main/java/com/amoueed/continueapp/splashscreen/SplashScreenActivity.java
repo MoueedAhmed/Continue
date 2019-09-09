@@ -13,6 +13,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.amoueed.continueapp.EnrollmentActivity;
+import com.amoueed.continueapp.PolicyActivity;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.main.MainActivity;
 import com.bumptech.glide.Glide;
@@ -58,7 +59,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         startActivity(in);
                         finish();
                     }else{
-                        Intent in = new Intent(SplashScreenActivity.this, EnrollmentActivity.class);
+                        Intent in = new Intent(SplashScreenActivity.this, PolicyActivity.class);
                         startActivity(in);
                         finish();
                     }
