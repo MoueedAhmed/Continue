@@ -390,8 +390,6 @@ public class EnrollmentActivity extends AppCompatActivity implements GoogleApiCl
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(EnrollmentActivity.this, currentLocation,
-                                    Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent in = new Intent(EnrollmentActivity.this, SuccessActivity.class)
                                     .putExtra(CHILD_NAME, childName)
