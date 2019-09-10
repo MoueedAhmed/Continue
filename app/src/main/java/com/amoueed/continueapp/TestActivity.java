@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -28,7 +29,7 @@ public class TestActivity extends AppCompatActivity {
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
-    StorageReference fileReference;
+    StorageReference dirReference;
     StorageReference gsReference;
 
     @Override
@@ -44,33 +45,47 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted() {
                 Toast.makeText(TestActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-
-
-                String fileLocationFirebase = "initial_content/1/1.txt";
+                
+                String dirLocationFirebase = "initial_content/1";
                 // Create a reference with an initial file path and name
-                fileReference = storageRef.child(fileLocationFirebase);
-                // Create a reference to a file from a Google Cloud Storage URI
-                gsReference = storage.getReferenceFromUrl("gs://continue-74e75.appspot.com/"+fileLocationFirebase);
+                dirReference = storageRef.child(dirLocationFirebase);
 
-                File directory = getStorageDir(TestActivity.this, "content");
-                File file = null;
-                try {
-                    file = new File(directory, "1.txt");
-                } catch (Exception e) {
-                    Toast.makeText(TestActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                final File directory = getStorageDir(TestActivity.this, "content");
 
-                fileReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(TestActivity.this, "Done Downloading", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(TestActivity.this, "Failed downloading", Toast.LENGTH_LONG).show();
-                    }
-                });
+                dirReference.listAll()
+                        .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                            @Override
+                            public void onSuccess(ListResult listResult) {
+                                for (StorageReference item : listResult.getItems()) {
+                                    // All the items under listRef.
+                                    File file = null;
+                                    try {
+                                        file = new File(directory, item.getName());
+                                    } catch (Exception e) {
+                                        Toast.makeText(TestActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                    item.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                            Toast.makeText(TestActivity.this, "Downloading: "
+                                                    +taskSnapshot.getStorage().getName(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            Toast.makeText(TestActivity.this, "Failed downloading", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(TestActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
 
             @Override
@@ -99,4 +114,24 @@ public class TestActivity extends AppCompatActivity {
         }
         return file;
     }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
 }
+
