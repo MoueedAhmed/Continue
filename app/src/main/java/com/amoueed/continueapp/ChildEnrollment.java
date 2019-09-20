@@ -14,14 +14,13 @@ public class ChildEnrollment {
     public String language;
     public String barrier;
     public String preferredTime;
-    public String currentLocation;
 
     public ChildEnrollment() {
     }
 
     public ChildEnrollment(String childName, String childDOB, String childGender,
                            String childMR, String contactNo, String childRelative,
-                           String mode, String language, String barrier, String preferredTime, String currentLocation) {
+                           String mode, String language, String barrier, String preferredTime) {
         this.childName = childName;
         this.childDOB = childDOB;
         this.childGender = childGender;
@@ -32,6 +31,5 @@ public class ChildEnrollment {
         this.language = language;
         this.barrier = barrier;
         this.preferredTime = preferredTime;
-        this.currentLocation = currentLocation;
     }
 }
