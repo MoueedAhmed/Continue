@@ -148,7 +148,7 @@ public class SuccessActivity extends AppCompatActivity {
         // Create a reference with an initial file path and name
         StorageReference dirReference = storageRef.child(dirLocationFirebase);
 
-        final File directory = getStorageDir(SuccessActivity.this, "content");
+        //final File directory = getStorageDir(SuccessActivity.this, "content");
 
         dirReference.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
@@ -158,7 +158,7 @@ public class SuccessActivity extends AppCompatActivity {
                             // All the items under listRef.
                             File file = null;
                             try {
-                                file = new File(directory, item.getName());
+                                file = new File(getFilesDir(), item.getName());
                             } catch (Exception e) {
                                 Toast.makeText(SuccessActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
@@ -195,15 +195,15 @@ public class SuccessActivity extends AppCompatActivity {
     }
 
     //get Internal storage directory and create new directory having name dirName as argument
-    public File getStorageDir(Context context, String dirName) {
-        // Get the directory
-        File dir = new File(context.getFilesDir(), dirName);
-        if (!dir.mkdirs()) {
-            Toast.makeText(SuccessActivity.this,
-                    "Failed creating directory " + dirName, Toast.LENGTH_SHORT).show();
-        }
-        return dir;
-    }
+//    public File getStorageDir(Context context, String dirName) {
+//        // Get the directory
+//        File dir = new File(context.getFilesDir(), dirName);
+//        if (!dir.mkdirs()) {
+//            Toast.makeText(SuccessActivity.this,
+//                    "Failed creating directory " + dirName, Toast.LENGTH_SHORT).show();
+//        }
+//        return dir;
+//    }
 
     @Override
     public void onStart() {

@@ -6,6 +6,7 @@
     tools:context=".main.fragment.ScheduleFragment">
 
     <TextView
+        android:id="@+id/notification_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="NotificationFragment" />

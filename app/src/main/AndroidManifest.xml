@@ -15,7 +15,13 @@
         <activity
             android:name=".PolicyActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".SuccessActivity" />
+        <activity android:name=".SuccessActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".EnrollmentActivity" />
         <activity
             android:name=".main.MainActivity"
@@ -24,11 +30,7 @@
         <activity
             android:name=".splashscreen.SplashScreenActivity"
             android:theme="@style/FullScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>
