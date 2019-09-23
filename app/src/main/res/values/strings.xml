@@ -35,5 +35,6 @@
     <string name="summary">Summary</string>
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
+    <string name="download_content">Download Content</string>
 
 </resources>

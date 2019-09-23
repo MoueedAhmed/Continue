@@ -1,6 +1,9 @@
 package com.amoueed.continueapp.main;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
@@ -8,6 +11,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.amoueed.continueapp.EnrollmentActivity;
+import com.amoueed.continueapp.SuccessActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -24,6 +30,12 @@ import com.amoueed.continueapp.main.fragment.ResourceFragment;
 import com.amoueed.continueapp.main.fragment.ScheduleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
 
 
 public class MainActivity extends AppCompatActivity
@@ -89,7 +101,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_download) {
+            downloadContent();
             return true;
         }
 
@@ -126,4 +139,70 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void downloadContent() {
+        //[Start] Downloading content from Firebase
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        String dirLocationFirebase = "initial_content/1";
+        // Create a reference with an initial file path and name
+        StorageReference dirReference = storageRef.child(dirLocationFirebase);
+
+        //final File directory = getStorageDir(SuccessActivity.this, "content");
+
+        dirReference.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        for (StorageReference item : listResult.getItems()) {
+                            // All the items under listRef.
+                            File file = null;
+                            try {
+                                file = new File(getFilesDir(), item.getName());
+                            } catch (Exception e) {
+                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+                            dialog.setCancelable(false);
+                            dialog.setMessage("Downloading content, please wait.");
+                            dialog.show();
+
+                            item.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    dialog.dismiss();
+//                                    Toast.makeText(MainActivity.this, "Downloading: "
+//                                            +taskSnapshot.getStorage().getName(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    dialog.dismiss();
+                                    Toast.makeText(MainActivity.this, "Failed downloading", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //[End] Downloading content from Firebase
+    }
+
+    //get Internal storage directory and create new directory having name dirName as argument
+//    public File getStorageDir(Context context, String dirName) {
+//        // Get the directory
+//        File dir = new File(context.getFilesDir(), dirName);
+//        if (!dir.mkdirs()) {
+//            Toast.makeText(MainActivity.this,
+//                    "Failed creating directory " + dirName, Toast.LENGTH_SHORT).show();
+//        }
+//        return dir;
+//    }
 }

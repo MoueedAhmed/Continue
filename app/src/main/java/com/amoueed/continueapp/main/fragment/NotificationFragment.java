@@ -24,7 +24,8 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class NotificationFragment extends Fragment {
-    StringBuilder sb;
+
+//    StringBuilder sb;
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -63,6 +64,6 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        Toast.makeText(getContext(), sb, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), getContext().getFilesDir().listFiles()[0]+"", Toast.LENGTH_LONG).show();
     }
 }
