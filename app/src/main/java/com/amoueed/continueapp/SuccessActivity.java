@@ -94,7 +94,7 @@ public class SuccessActivity extends AppCompatActivity {
         continue_success_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(SuccessActivity.this, MainActivity.class);
+                Intent in = new Intent(SuccessActivity.this, TestActivity.class);
                 startActivity(in);
                 finish();
             }
