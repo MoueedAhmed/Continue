@@ -150,6 +150,10 @@ public class MainActivity extends AppCompatActivity
         StorageReference dirReference = storageRef.child(dirLocationFirebase);
 
         //final File directory = getStorageDir(SuccessActivity.this, "content");
+        final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+        dialog.setCancelable(false);
+        dialog.setMessage("Downloading content, please wait.");
+        dialog.show();
 
         dirReference.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
@@ -164,26 +168,22 @@ public class MainActivity extends AppCompatActivity
                                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
 
-                            final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-                            dialog.setCancelable(false);
-                            dialog.setMessage("Downloading content, please wait.");
-                            dialog.show();
+
 
                             item.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    dialog.dismiss();
 //                                    Toast.makeText(MainActivity.this, "Downloading: "
 //                                            +taskSnapshot.getStorage().getName(), Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
-                                    dialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Failed downloading", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
+                        dialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
