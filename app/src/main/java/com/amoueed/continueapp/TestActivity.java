@@ -3,6 +3,7 @@ package com.amoueed.continueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,26 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
         mRecyclerView.setAdapter(mAdapter);
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            // Called when a user swipes left or right on a ViewHolder
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int position = viewHolder.getAdapterPosition();
+                        List<WeekEntry> tasks = mAdapter.getWeeks();
+                        mDb.weekDao().deleteWeek(tasks.get(position));
+                        retrieveWeeks();
+                    }
+                });
+            }
+        }).attachToRecyclerView(mRecyclerView);
 
         mDb = AppDatabase.getInstance(getApplicationContext());
 
@@ -65,6 +86,21 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
     @Override
     protected void onResume() {
         super.onResume();
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final List<WeekEntry> weeks = mDb.weekDao().loadAllWeeks();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setWeeks(weeks);
+                    }
+                });
+            }
+        });
+    }
+
+    private void retrieveWeeks() {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {

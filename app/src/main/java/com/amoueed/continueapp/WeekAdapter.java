@@ -136,6 +136,10 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
         notifyDataSetChanged();
     }
 
+    public List<WeekEntry> getWeeks() {
+        return mWeekEntries;
+    }
+
     public interface ItemClickListener {
         void onItemClickListener(int itemId);
     }
