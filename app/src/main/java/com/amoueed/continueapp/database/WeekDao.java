@@ -1,5 +1,6 @@
 package com.amoueed.continueapp.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface WeekDao {
 
     @Query("SELECT * FROM week ORDER BY week_num")
-    List<WeekEntry> loadAllWeeks();
+    LiveData<List<WeekEntry>> loadAllWeeks();
 
     @Insert
     void insertWeek(WeekEntry weekEntry);

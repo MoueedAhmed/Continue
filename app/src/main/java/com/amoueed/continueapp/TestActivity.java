@@ -1,7 +1,10 @@
 package com.amoueed.continueapp;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 
@@ -53,13 +57,14 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
                         int position = viewHolder.getAdapterPosition();
                         List<WeekEntry> tasks = mAdapter.getWeeks();
                         mDb.weekDao().deleteWeek(tasks.get(position));
-                        retrieveWeeks();
                     }
                 });
             }
         }).attachToRecyclerView(mRecyclerView);
 
         mDb = AppDatabase.getInstance(getApplicationContext());
+        
+        retrieveWeeks();
 
     }
 
@@ -83,34 +88,12 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                final List<WeekEntry> weeks = mDb.weekDao().loadAllWeeks();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.setWeeks(weeks);
-                    }
-                });
-            }
-        });
-    }
-
     private void retrieveWeeks() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+        LiveData<List<WeekEntry>> weeks = mDb.weekDao().loadAllWeeks();
+        weeks.observe(this, new Observer<List<WeekEntry>>() {
             @Override
-            public void run() {
-                final List<WeekEntry> weeks = mDb.weekDao().loadAllWeeks();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.setWeeks(weeks);
-                    }
-                });
+            public void onChanged(@Nullable List<WeekEntry> weekEntries) {
+                mAdapter.setWeeks(weekEntries);
             }
         });
     }
