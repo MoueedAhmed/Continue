@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,8 +64,8 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
         }).attachToRecyclerView(mRecyclerView);
 
         mDb = AppDatabase.getInstance(getApplicationContext());
-        
-        retrieveWeeks();
+
+        setupViewModel();
 
     }
 
@@ -88,9 +89,10 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
 
     }
 
-    private void retrieveWeeks() {
-        LiveData<List<WeekEntry>> weeks = mDb.weekDao().loadAllWeeks();
-        weeks.observe(this, new Observer<List<WeekEntry>>() {
+    private void setupViewModel() {
+
+        WeekViewModel viewModel = ViewModelProviders.of(this).get(WeekViewModel.class);
+        viewModel.getWeeks().observe(this, new Observer<List<WeekEntry>>() {
             @Override
             public void onChanged(@Nullable List<WeekEntry> weekEntries) {
                 mAdapter.setWeeks(weekEntries);
