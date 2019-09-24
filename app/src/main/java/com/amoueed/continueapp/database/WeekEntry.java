@@ -1,17 +1,21 @@
 package com.amoueed.continueapp.database;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
-// TODO (2) Annotate the class with Entity. Use "task" for the table name
+@Entity(tableName = "week")
 public class WeekEntry {
 
-    // TODO (3) Annotate the id as PrimaryKey. Set autoGenerate to true.
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String resource_path;
     private int week_num;
     private Date week_date;
 
-    // TODO (4) Use the Ignore annotation so Room knows that it has to use the other constructor instead
+    @Ignore
     public WeekEntry(String resource_path, int week_num, Date week_date) {
         this.resource_path = resource_path;
         this.week_num = week_num;
