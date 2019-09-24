@@ -13,9 +13,11 @@ import android.view.View;
 
 
 import com.amoueed.continueapp.database.AppDatabase;
+import com.amoueed.continueapp.database.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
 
 import java.util.Date;
+import java.util.List;
 
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
 
@@ -48,14 +50,33 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
     public void b1Clicked(View view) {
 
         Date date = new Date();
-        WeekEntry weekEntry = new WeekEntry("resource/path", 1, date);
-        mDb.weekDao().insertWeek(weekEntry);
+        final WeekEntry weekEntry = new WeekEntry("resource/path", 1, date);
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.weekDao().insertWeek(weekEntry);
+            }
+        });
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mAdapter.setWeeks(mDb.weekDao().loadAllWeeks());
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final List<WeekEntry> weeks = mDb.weekDao().loadAllWeeks();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setWeeks(weeks);
+                    }
+                });
+            }
+        });
     }
 }
 
