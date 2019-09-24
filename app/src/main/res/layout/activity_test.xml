@@ -10,6 +10,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/week_recycler_view"
+        android:layout_height="300dp"/>
+
+    <Button
+        android:onClick="b1Clicked"
+        android:text="Insert"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 
