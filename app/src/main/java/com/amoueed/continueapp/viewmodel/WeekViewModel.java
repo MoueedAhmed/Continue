@@ -1,4 +1,4 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.viewmodel;
 
 import android.app.Application;
 import android.util.Log;

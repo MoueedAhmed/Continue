@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.main.fragment;
+package com.amoueed.continueapp.ui.main.fragment;
 
 
 import android.os.Bundle;
@@ -13,19 +13,18 @@ import com.amoueed.continueapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ResourceFragment extends Fragment {
+public class ScheduleFragment extends Fragment {
 
 
-    public ResourceFragment() {
+    public ScheduleFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_resource, container, false);
+        return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
 }

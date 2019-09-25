@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.main;
+package com.amoueed.continueapp.ui.main;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,8 +10,6 @@ import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
-import com.amoueed.continueapp.EnrollmentActivity;
-import com.amoueed.continueapp.SuccessActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -23,11 +21,11 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.main.fragment.AboutFragment;
-import com.amoueed.continueapp.main.fragment.FeedbackFragment;
-import com.amoueed.continueapp.main.fragment.NotificationFragment;
-import com.amoueed.continueapp.main.fragment.ResourceFragment;
-import com.amoueed.continueapp.main.fragment.ScheduleFragment;
+import com.amoueed.continueapp.ui.main.fragment.AboutFragment;
+import com.amoueed.continueapp.ui.main.fragment.FeedbackFragment;
+import com.amoueed.continueapp.ui.main.fragment.NotificationFragment;
+import com.amoueed.continueapp.ui.main.fragment.ResourceFragment;
+import com.amoueed.continueapp.ui.main.fragment.ScheduleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FileDownloadTask;

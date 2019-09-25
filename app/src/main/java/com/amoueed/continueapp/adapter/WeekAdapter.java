@@ -1,4 +1,4 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.database.WeekEntry;
 
 import java.text.SimpleDateFormat;

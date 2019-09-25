@@ -1,4 +1,4 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.ui;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 

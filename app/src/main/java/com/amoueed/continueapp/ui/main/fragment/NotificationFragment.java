@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.main.fragment;
+package com.amoueed.continueapp.ui.main.fragment;
 
 
 import android.os.Bundle;
@@ -8,17 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.amoueed.continueapp.EnrollmentActivity;
 import com.amoueed.continueapp.R;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.

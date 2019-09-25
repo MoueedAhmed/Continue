@@ -1,6 +1,5 @@
 package com.amoueed.continueapp.splashscreen;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -8,14 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
-import com.amoueed.continueapp.EnrollmentActivity;
-import com.amoueed.continueapp.PolicyActivity;
+import com.amoueed.continueapp.ui.PolicyActivity;
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.main.MainActivity;
+import com.amoueed.continueapp.ui.main.MainActivity;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 

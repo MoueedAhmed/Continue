@@ -1,17 +1,14 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.amoueed.continueapp.splashscreen.SplashScreenActivity;
+import com.amoueed.continueapp.R;
 
 public class PolicyActivity extends AppCompatActivity {
 

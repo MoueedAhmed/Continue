@@ -1,9 +1,8 @@
-package com.amoueed.continueapp;
+package com.amoueed.continueapp.ui;
 
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -14,13 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 
+import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.adapter.WeekAdapter;
 import com.amoueed.continueapp.database.AppDatabase;
 import com.amoueed.continueapp.database.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
+import com.amoueed.continueapp.viewmodel.WeekViewModel;
 
 import java.util.Date;
 import java.util.List;

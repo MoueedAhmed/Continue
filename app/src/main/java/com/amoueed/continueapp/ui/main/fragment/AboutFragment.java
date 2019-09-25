@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.main.fragment;
+package com.amoueed.continueapp.ui.main.fragment;
 
 
 import android.os.Bundle;
