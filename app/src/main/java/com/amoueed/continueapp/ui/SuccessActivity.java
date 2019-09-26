@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.ui.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -80,7 +81,7 @@ public class SuccessActivity extends AppCompatActivity {
         continue_success_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(SuccessActivity.this, TestActivity.class);
+                Intent in = new Intent(SuccessActivity.this, MainActivity.class);
                 startActivity(in);
                 finish();
             }
