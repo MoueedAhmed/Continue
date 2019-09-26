@@ -58,67 +58,14 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
         holder.week_no_tv.setText(week_num_string);
 
         GradientDrawable weekCircle = (GradientDrawable) holder.week_no_tv.getBackground();
-        int weekColor = getWeekColor(week_num);
+        int weekColor = getWeekColor();
         weekCircle.setColor(weekColor);
     }
 
-    /*
-    Helper method for selecting the correct circle color.
-    P1 = red, P2 = orange, P3 = yellow
-    */
-    private int getWeekColor(int week_num) {
-        int weekColor = 0;
 
-        switch (week_num) {
-            case 1:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialRed);
-                break;
-            case 2:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialOrange);
-                break;
-            case 3:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialYellow);
-                break;
-            case 4:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialRed);
-                break;
-            case 5:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialOrange);
-                break;
-            case 6:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialYellow);
-                break;
-            case 7:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialRed);
-                break;
-            case 8:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialOrange);
-                break;
-            case 9:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialYellow);
-                break;
-            case 10:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialRed);
-                break;
-            case 11:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialOrange);
-                break;
-            case 12:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialYellow);
-                break;
-            case 13:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialRed);
-                break;
-            case 14:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialOrange);
-                break;
-            case 15:
-                weekColor = ContextCompat.getColor(mContext, R.color.materialYellow);
-                break;
-            default:
-                break;
-        }
-        return weekColor;
+    private int getWeekColor() {
+
+        return ContextCompat.getColor(mContext, R.color.materialYellow);
     }
 
     /**

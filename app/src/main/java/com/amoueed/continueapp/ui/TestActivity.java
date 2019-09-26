@@ -100,5 +100,18 @@ public class TestActivity extends AppCompatActivity implements WeekAdapter.ItemC
             }
         });
     }
+
+    private void insertWeekEntry(String ext, int week){
+        Date date = new Date();
+        String fileLocation = getApplicationContext().getFilesDir().getAbsolutePath()+"."+ext;
+        final WeekEntry weekEntry = new WeekEntry(fileLocation, week, date);
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.weekDao().insertWeek(weekEntry);
+            }
+        });
+    }
 }
 

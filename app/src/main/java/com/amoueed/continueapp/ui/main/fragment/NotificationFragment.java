@@ -1,6 +1,8 @@
 package com.amoueed.continueapp.ui.main.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,14 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.adapter.WeekAdapter;
 import com.amoueed.continueapp.database.AppDatabase;
 import com.amoueed.continueapp.database.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
+import com.amoueed.continueapp.ui.EnrollmentActivity;
 import com.amoueed.continueapp.viewmodel.WeekViewModel;
 
+import java.util.Date;
 import java.util.List;
 
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
@@ -41,6 +46,22 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
+
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        int isDataSaved = sharedPref.getInt("IsDataSaved",0);
+
+        if(isDataSaved == 0){
+
+            for(int count=1;count<=15;count++){
+
+                insertWeekEntry("txt",count);
+            }
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("IsDataSaved",1);
+            editor.commit();
+        }
 
     }
 
@@ -74,7 +95,7 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
+
 
         setupViewModel();
         return rootView;
@@ -94,5 +115,18 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
     @Override
     public void onItemClickListener(int itemId) {
 
+    }
+
+    private void insertWeekEntry(String ext, int week){
+        Date date = new Date();
+        String fileLocation = getContext().getFilesDir().getAbsolutePath()+"/"+week+"."+ext;
+        final WeekEntry weekEntry = new WeekEntry(fileLocation, week, date);
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.weekDao().insertWeek(weekEntry);
+            }
+        });
     }
 }

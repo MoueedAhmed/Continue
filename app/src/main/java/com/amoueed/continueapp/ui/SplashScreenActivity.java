@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.splashscreen;
+package com.amoueed.continueapp.ui;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.amoueed.continueapp.ui.PolicyActivity;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.ui.main.MainActivity;
 import com.bumptech.glide.Glide;
