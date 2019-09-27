@@ -2,6 +2,7 @@ package com.amoueed.continueapp.ui.main.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -25,6 +26,9 @@ import com.amoueed.continueapp.database.AppDatabase;
 import com.amoueed.continueapp.database.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
 import com.amoueed.continueapp.ui.EnrollmentActivity;
+import com.amoueed.continueapp.ui.NotificationDetailActivity;
+import com.amoueed.continueapp.ui.SplashScreenActivity;
+import com.amoueed.continueapp.ui.main.MainActivity;
 import com.amoueed.continueapp.viewmodel.WeekViewModel;
 
 import java.util.Date;
@@ -33,6 +37,8 @@ import java.util.List;
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
 
 public class NotificationFragment extends Fragment implements WeekAdapter.ItemClickListener {
+
+    private static final String RESOURCE_PATH = "resourcePath";
 
     private RecyclerView mRecyclerView;
     private WeekAdapter mAdapter;
@@ -117,6 +123,10 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
 
     @Override
     public void onItemClickListener(int itemId) {
+        Intent in = new Intent(getActivity(), NotificationDetailActivity.class);
+        List<WeekEntry> weeks =  mAdapter.getWeeks();
+        in.putExtra(RESOURCE_PATH, weeks.get(itemId-1).getResource_path());
+        startActivity(in);
 
     }
 
