@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.amoueed.continueapp.R;
 
+import org.apache.commons.io.FilenameUtils;
+
 public class NotificationDetailActivity extends AppCompatActivity {
 
     private static final String RESOURCE_PATH = "resourcePath";
@@ -24,8 +26,10 @@ public class NotificationDetailActivity extends AppCompatActivity {
         intent = getIntent();
         resourcePath = intent.getStringExtra(RESOURCE_PATH);
 
-        Toast.makeText(NotificationDetailActivity.this,
-                resourcePath,
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(NotificationDetailActivity.this, getExtension(resourcePath), Toast.LENGTH_LONG).show();
+    }
+
+    public String getExtension(String filename) {
+        return FilenameUtils.getExtension(filename);
     }
 }
