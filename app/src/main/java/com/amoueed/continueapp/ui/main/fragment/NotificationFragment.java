@@ -31,6 +31,8 @@ import com.amoueed.continueapp.ui.SplashScreenActivity;
 import com.amoueed.continueapp.ui.main.MainActivity;
 import com.amoueed.continueapp.viewmodel.WeekViewModel;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +40,7 @@ import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
 
 public class NotificationFragment extends Fragment implements WeekAdapter.ItemClickListener {
 
-    private static final String RESOURCE_PATH = "resourcePath";
+    private static final String FILE_NAME = "fileName";
 
     private RecyclerView mRecyclerView;
     private WeekAdapter mAdapter;
@@ -125,7 +127,7 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
     public void onItemClickListener(int itemId) {
         Intent in = new Intent(getActivity(), NotificationDetailActivity.class);
         List<WeekEntry> weeks =  mAdapter.getWeeks();
-        in.putExtra(RESOURCE_PATH, weeks.get(itemId-1).getResource_path());
+        in.putExtra(FILE_NAME, weeks.get(itemId-1).getId()+"."+getExtension(weeks.get(itemId-1).getResource_path()));
         startActivity(in);
 
     }
@@ -141,5 +143,9 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
                 mDb.weekDao().insertWeek(weekEntry);
             }
         });
+    }
+
+    private String getExtension(String filename) {
+        return FilenameUtils.getExtension(filename);
     }
 }

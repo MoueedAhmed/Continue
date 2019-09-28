@@ -51,7 +51,7 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
         int week_num = weekEntry.getWeek_num();
         String week_date = dateFormat.format(weekEntry.getWeek_date());
 
-        holder.week_resource_tv.setText(resource_path);
+        holder.week_resource_tv.setText("Week "+weekEntry.getWeek_num());
         holder.week_date_tv.setText(week_date);
 
         String week_num_string = "" + week_num;

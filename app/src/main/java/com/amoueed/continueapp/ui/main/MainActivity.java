@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity
 
         //final File directory = getStorageDir(SuccessActivity.this, "content");
         final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setMessage("Downloading content, please wait.");
         dialog.show();
 
