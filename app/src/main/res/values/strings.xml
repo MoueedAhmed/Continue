@@ -37,4 +37,8 @@
     <string name="disagree">Disagree</string>
     <string name="download_content">Download Content</string>
 
+    <string name="back"><![CDATA[<]]></string>
+    <string name="rewind"><![CDATA[<<]]></string>
+    <string name="forward"><![CDATA[>>]]></string>
+    <string name="pause">||</string>
 </resources>

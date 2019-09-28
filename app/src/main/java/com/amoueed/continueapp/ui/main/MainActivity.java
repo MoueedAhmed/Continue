@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
-    FirebaseUser user;
+    private FirebaseUser user;
+    public static String CONTENT_IDENTIFIER = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_download) {
-            downloadContent();
+            downloadContent(CONTENT_IDENTIFIER);
             return true;
         }
 
@@ -138,12 +139,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void downloadContent() {
+    private void downloadContent(String contentIdentifier) {
         //[Start] Downloading content from Firebase
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
-        String dirLocationFirebase = "initial_content/1";
+        String dirLocationFirebase = "initial_content/"+contentIdentifier;
         // Create a reference with an initial file path and name
         StorageReference dirReference = storageRef.child(dirLocationFirebase);
 

@@ -61,9 +61,16 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
 
         if(isDataSaved == 0){
 
+            String extension;
+            if(MainActivity.CONTENT_IDENTIFIER.equals("2")){
+                extension = "wav";
+            }else{
+                extension = "txt";
+            }
+
             for(int count=1;count<=15;count++){
 
-                insertWeekEntry("txt",count);
+                insertWeekEntry(extension,count);
             }
 
             SharedPreferences.Editor editor = sharedPref.edit();
