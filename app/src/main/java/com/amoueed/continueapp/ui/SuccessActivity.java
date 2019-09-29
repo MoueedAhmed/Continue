@@ -1,13 +1,22 @@
 package com.amoueed.continueapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amoueed.continueapp.AlarmReceiver;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.ui.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,6 +65,12 @@ public class SuccessActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+
+    // Notification ID.
+    private static final int NOTIFICATION_ID = 0;
+    private NotificationManager mNotificationManager;
+    // Notification channel ID.
+    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +142,41 @@ public class SuccessActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        createChannel();
+
+        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+                (this, NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long repeatInterval = 10000L;
+        long triggerTime = SystemClock.elapsedRealtime() + repeatInterval;
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            triggerTime, repeatInterval, notifyPendingIntent);
+        }
+
+    }
+
+    private void createChannel(){
+        // Create a notification manager object.
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Notification channels are only available in OREO and higher.
+        // So, add a check on SDK version.
+        if (android.os.Build.VERSION.SDK_INT >=
+                android.os.Build.VERSION_CODES.O) {
+
+            // Create the NotificationChannel with all the parameters.
+            NotificationChannel notificationChannel = new NotificationChannel
+                    (PRIMARY_CHANNEL_ID, "Stand up notification", NotificationManager.IMPORTANCE_HIGH);
+
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setDescription("Notifies every 15 minutes to stand up and walk");
+            mNotificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 
 
@@ -163,5 +213,4 @@ public class SuccessActivity extends AppCompatActivity {
         mDatabase.child("enrollments").child(userId).setValue(childEnrollment);
     }
     // [END basic_write]
-
 }

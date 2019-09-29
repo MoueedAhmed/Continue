@@ -44,7 +44,6 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
 
     private RecyclerView mRecyclerView;
     private WeekAdapter mAdapter;
-    private AppDatabase mDb;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -53,30 +52,6 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
-
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        int isDataSaved = sharedPref.getInt("IsDataSaved",0);
-
-        if(isDataSaved == 0){
-
-            String extension;
-            if(MainActivity.CONTENT_IDENTIFIER.equals("2")){
-                extension = "wav";
-            }else{
-                extension = "txt";
-            }
-
-            for(int count=1;count<=15;count++){
-
-                insertWeekEntry(extension,count);
-            }
-
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("IsDataSaved",1);
-            editor.commit();
-        }
 
     }
 
@@ -102,14 +77,6 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
 
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        int position = viewHolder.getAdapterPosition();
-                        List<WeekEntry> tasks = mAdapter.getWeeks();
-                        mDb.weekDao().deleteWeek(tasks.get(position));
-                    }
-                });
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -137,19 +104,6 @@ public class NotificationFragment extends Fragment implements WeekAdapter.ItemCl
         in.putExtra(FILE_NAME, weeks.get(itemId-1).getId()+"."+getExtension(weeks.get(itemId-1).getResource_path()));
         startActivity(in);
 
-    }
-
-    private void insertWeekEntry(String ext, int week){
-        Date date = new Date();
-        String fileLocation = getContext().getFilesDir().getAbsolutePath()+"/"+week+"."+ext;
-        final WeekEntry weekEntry = new WeekEntry(fileLocation, week, date);
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.weekDao().insertWeek(weekEntry);
-            }
-        });
     }
 
     private String getExtension(String filename) {

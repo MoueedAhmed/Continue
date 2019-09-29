@@ -29,6 +29,12 @@
         <activity
             android:name=".ui.SplashScreenActivity"
             android:theme="@style/FullScreen"></activity>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
