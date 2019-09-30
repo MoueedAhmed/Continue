@@ -2,6 +2,8 @@ package com.amoueed.continueapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -18,11 +20,14 @@ import android.widget.TextView;
 
 import com.amoueed.continueapp.AlarmReceiver;
 import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.WeekWorker;
 import com.amoueed.continueapp.ui.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.concurrent.TimeUnit;
 
 public class SuccessActivity extends AppCompatActivity {
 
@@ -144,17 +149,23 @@ public class SuccessActivity extends AppCompatActivity {
 
         createChannel();
 
-        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
-                (this, NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
+//        PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+//                (this, NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        long repeatInterval = 10000L;
+//        long triggerTime = SystemClock.elapsedRealtime() + repeatInterval;
+//        if (alarmManager != null) {
+//            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//                            triggerTime, repeatInterval, notifyPendingIntent);
+//        }
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        long repeatInterval = 10000L;
-        long triggerTime = SystemClock.elapsedRealtime() + repeatInterval;
-        if (alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                            triggerTime, repeatInterval, notifyPendingIntent);
-        }
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder
+                (WeekWorker.class, 15, TimeUnit.MINUTES)
+                .setInitialDelay(1,TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest);
 
     }
 
