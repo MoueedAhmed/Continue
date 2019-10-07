@@ -28,7 +28,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SplashScreenActivity"
-            android:theme="@style/FullScreen"></activity>
+            android:theme="@style/FullScreen">
+
+
+        </activity>
 
         <receiver
             android:name=".AlarmReceiver"

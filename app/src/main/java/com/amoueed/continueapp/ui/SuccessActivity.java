@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.amoueed.continueapp.AlarmReceiver;
+import com.amoueed.continueapp.DailyWorker;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.WeekWorker;
 import com.amoueed.continueapp.ui.main.MainActivity;
@@ -162,10 +163,15 @@ public class SuccessActivity extends AppCompatActivity {
 //        }
 
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder
-                (WeekWorker.class, 15, TimeUnit.MINUTES)
-                .setInitialDelay(1,TimeUnit.MINUTES)
+                (WeekWorker.class, 30, TimeUnit.MINUTES)
+                .setInitialDelay(2,TimeUnit.MINUTES)
                 .build();
         WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest);
+
+        PeriodicWorkRequest workRequest2 = new PeriodicWorkRequest.Builder
+                (DailyWorker.class, 15, TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest2);
 
     }
 
