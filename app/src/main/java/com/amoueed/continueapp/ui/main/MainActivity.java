@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    public static String CONTENT_IDENTIFIER = "2";
+    public static String CONTENT_IDENTIFIER = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

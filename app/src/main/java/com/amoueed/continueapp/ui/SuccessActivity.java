@@ -1,27 +1,22 @@
 package com.amoueed.continueapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.amoueed.continueapp.AlarmReceiver;
-import com.amoueed.continueapp.DailyWorker;
+import com.amoueed.continueapp.worker.DailyWorker;
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.WeekWorker;
+import com.amoueed.continueapp.worker.WeekWorker;
 import com.amoueed.continueapp.ui.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -163,7 +158,7 @@ public class SuccessActivity extends AppCompatActivity {
 //        }
 
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder
-                (WeekWorker.class, 30, TimeUnit.MINUTES)
+                (WeekWorker.class, 15, TimeUnit.MINUTES)
                 .setInitialDelay(2,TimeUnit.MINUTES)
                 .build();
         WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest);
@@ -227,7 +222,7 @@ public class SuccessActivity extends AppCompatActivity {
         ChildEnrollment childEnrollment = new ChildEnrollment(childName, childDOB, childGender, childMR, contactNo, childRelative,
                 mode, language, barrier, preferredTime);
 
-        mDatabase.child("enrollments").child(userId).setValue(childEnrollment);
+        mDatabase.child(userId).child("enrollment").setValue(childEnrollment);
     }
     // [END basic_write]
 }
