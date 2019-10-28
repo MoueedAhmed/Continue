@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.amoueed.continueapp.worker.DailyWorker;
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.worker.WeekWorker;
 import com.amoueed.continueapp.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -144,17 +143,17 @@ public class SuccessActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         createChannel();
-
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder
-                (WeekWorker.class, 15, TimeUnit.MINUTES)
-                .setInitialDelay(2,TimeUnit.MINUTES)
-                .build();
-        WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest);
-
-        PeriodicWorkRequest workRequest2 = new PeriodicWorkRequest.Builder
-                (DailyWorker.class, 15, TimeUnit.MINUTES)
-                .build();
-        WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest2);
+//
+//        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder
+//                (WeekWorker.class, 15, TimeUnit.MINUTES)
+//                .setInitialDelay(2,TimeUnit.MINUTES)
+//                .build();
+//        WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest);
+//
+//        PeriodicWorkRequest workRequest2 = new PeriodicWorkRequest.Builder
+//                (DailyWorker.class, 15, TimeUnit.MINUTES)
+//                .build();
+//        WorkManager.getInstance(SuccessActivity.this).enqueue(workRequest2);
 
     }
 

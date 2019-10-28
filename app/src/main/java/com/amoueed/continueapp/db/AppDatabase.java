@@ -8,9 +8,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.amoueed.continueapp.database.WeekDao;
-import com.amoueed.continueapp.database.WeekEntry;
-
 @Database(entities = {LocalNotificationDataEntry.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {

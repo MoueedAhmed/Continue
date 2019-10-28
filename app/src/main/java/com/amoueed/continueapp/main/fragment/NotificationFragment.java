@@ -2,7 +2,6 @@ package com.amoueed.continueapp.main.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -23,14 +22,10 @@ import android.widget.Toast;
 import com.amoueed.continueapp.ContentIdentifier;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.adapter.LocalNotificationDataAdapter;
-import com.amoueed.continueapp.adapter.WeekAdapter;
-import com.amoueed.continueapp.database.WeekEntry;
 import com.amoueed.continueapp.db.AppDatabase;
 import com.amoueed.continueapp.db.AppExecutors;
 import com.amoueed.continueapp.db.LocalNotificationDataEntry;
 import com.amoueed.continueapp.db.LocalNotificationViewModel;
-import com.amoueed.continueapp.ui.NotificationDetailActivity;
-import com.amoueed.continueapp.viewmodel.WeekViewModel;
 
 import org.apache.commons.io.FilenameUtils;
 
