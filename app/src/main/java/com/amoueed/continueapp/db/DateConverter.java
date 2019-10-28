@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.database;
+package com.amoueed.continueapp.db;
 
 import androidx.room.TypeConverter;
 

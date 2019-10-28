@@ -12,7 +12,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.database.AppDatabase;
+import com.amoueed.continueapp.db.AppDatabase;
 import com.amoueed.continueapp.main.MainActivity;
 
 public class DailyWorker extends Worker {

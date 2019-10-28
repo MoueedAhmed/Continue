@@ -13,8 +13,8 @@ import androidx.work.WorkerParameters;
 
 import com.amoueed.continueapp.ContentIdentifier;
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.database.AppDatabase;
-import com.amoueed.continueapp.database.AppExecutors;
+import com.amoueed.continueapp.db.AppDatabase;
+import com.amoueed.continueapp.db.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
 import com.amoueed.continueapp.main.MainActivity;
 
@@ -43,7 +43,7 @@ public class WeekWorker extends Worker {
         mDb = AppDatabase.getInstance(ctx.getApplicationContext());
 
         SharedPreferences sharedPref = ctx.getSharedPreferences("count",Context.MODE_PRIVATE);
-        int count = sharedPref.getInt("count",1);
+        int count = sharedPref.getInt("count",0);
         String extension;
         if(new ContentIdentifier().CONTENT_IDENTIFIER.equals("2")){
             extension = "wav";
@@ -94,7 +94,7 @@ public class WeekWorker extends Worker {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                mDb.weekDao().insertWeek(weekEntry);
+//                mDb.weekDao().insertWeek(weekEntry);
             }
         });
     }

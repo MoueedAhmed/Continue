@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.amoueed.continueapp.database.AppDatabase;
+import com.amoueed.continueapp.db.AppDatabase;
 import com.amoueed.continueapp.database.WeekEntry;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class WeekViewModel extends AndroidViewModel {
         super(application);
         AppDatabase database = AppDatabase.getInstance(this.getApplication());
         Log.d(TAG, "Actively retrieving the tasks from the DataBase");
-        weeks = database.weekDao().loadAllWeeks();
+//        weeks = database.weekDao().loadAllWeeks();
     }
 
     public LiveData<List<WeekEntry>> getWeeks() {

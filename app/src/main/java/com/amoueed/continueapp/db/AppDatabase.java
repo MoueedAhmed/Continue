@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.database;
+package com.amoueed.continueapp.db;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,7 +8,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {WeekEntry.class}, version = 1, exportSchema = false)
+import com.amoueed.continueapp.database.WeekDao;
+import com.amoueed.continueapp.database.WeekEntry;
+
+@Database(entities = {LocalNotificationDataEntry.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -30,6 +33,5 @@ public abstract class AppDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    public abstract WeekDao weekDao();
-
+    public abstract LocalNotificationDataDao localNotificationDataDao();
 }
