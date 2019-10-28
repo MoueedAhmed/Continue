@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.ui;
+package com.amoueed.continueapp;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -9,8 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.ui.main.MainActivity;
+import com.amoueed.continueapp.main.MainActivity;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 

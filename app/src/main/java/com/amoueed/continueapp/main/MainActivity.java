@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.ui.main;
+package com.amoueed.continueapp.main;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
+import com.amoueed.continueapp.ContentIdentifier;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -21,13 +22,10 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.amoueed.continueapp.R;
-import com.amoueed.continueapp.ui.main.fragment.AboutFragment;
-import com.amoueed.continueapp.ui.main.fragment.FeedbackFragment;
-import com.amoueed.continueapp.ui.main.fragment.NotificationFragment;
-import com.amoueed.continueapp.ui.main.fragment.ResourceFragment;
-import com.amoueed.continueapp.ui.main.fragment.ScheduleFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.amoueed.continueapp.main.fragment.AboutFragment;
+import com.amoueed.continueapp.main.fragment.NotificationFragment;
+import com.amoueed.continueapp.main.fragment.ResourceFragment;
+import com.amoueed.continueapp.main.fragment.ScheduleFragment;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
@@ -39,9 +37,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
-    public static String CONTENT_IDENTIFIER = "1";
+    ContentIdentifier contentIdentifier = new ContentIdentifier();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("CoNTiNuE");
+        setTitle("CoNTINuE");
 
         if (savedInstanceState == null) {
             Fragment newFragment = new NotificationFragment();
@@ -66,13 +62,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-        if(user!=null){
-            Toast.makeText(MainActivity.this, user.getUid(),
-                    Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
@@ -101,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_download) {
-            downloadContent(CONTENT_IDENTIFIER);
+            downloadContent(contentIdentifier.CONTENT_IDENTIFIER);
             return true;
         }
 
@@ -124,8 +113,6 @@ public class MainActivity extends AppCompatActivity
             fragment = new ResourceFragment();
         } else if (id == R.id.nav_about) {
             fragment = new AboutFragment();
-        } else if (id == R.id.nav_feedback) {
-            fragment = new FeedbackFragment();
         }
 
         if (fragment != null) {
@@ -144,7 +131,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
-        String dirLocationFirebase = "initial_content/"+contentIdentifier;
+        String dirLocationFirebase = "content/"+contentIdentifier;
         // Create a reference with an initial file path and name
         StorageReference dirReference = storageRef.child(dirLocationFirebase);
 
@@ -172,8 +159,7 @@ public class MainActivity extends AppCompatActivity
                             item.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                                    Toast.makeText(MainActivity.this, "Downloading: "
-//                                            +taskSnapshot.getStorage().getName(), Toast.LENGTH_SHORT).show();
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -194,14 +180,4 @@ public class MainActivity extends AppCompatActivity
         //[End] Downloading content from Firebase
     }
 
-    //get Internal storage directory and create new directory having name dirName as argument
-//    public File getStorageDir(Context context, String dirName) {
-//        // Get the directory
-//        File dir = new File(context.getFilesDir(), dirName);
-//        if (!dir.mkdirs()) {
-//            Toast.makeText(MainActivity.this,
-//                    "Failed creating directory " + dirName, Toast.LENGTH_SHORT).show();
-//        }
-//        return dir;
-//    }
 }

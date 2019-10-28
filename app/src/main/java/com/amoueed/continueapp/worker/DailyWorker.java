@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -14,11 +13,7 @@ import androidx.work.WorkerParameters;
 
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.database.AppDatabase;
-import com.amoueed.continueapp.database.AppExecutors;
-import com.amoueed.continueapp.database.WeekEntry;
-import com.amoueed.continueapp.ui.main.MainActivity;
-
-import java.util.Date;
+import com.amoueed.continueapp.main.MainActivity;
 
 public class DailyWorker extends Worker {
 

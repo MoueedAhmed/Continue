@@ -1,9 +1,7 @@
-package com.amoueed.continueapp.ui.main.fragment;
+package com.amoueed.continueapp.main.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -18,22 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.adapter.WeekAdapter;
-import com.amoueed.continueapp.database.AppDatabase;
-import com.amoueed.continueapp.database.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
-import com.amoueed.continueapp.ui.EnrollmentActivity;
 import com.amoueed.continueapp.ui.NotificationDetailActivity;
-import com.amoueed.continueapp.ui.SplashScreenActivity;
-import com.amoueed.continueapp.ui.main.MainActivity;
 import com.amoueed.continueapp.viewmodel.WeekViewModel;
 
 import org.apache.commons.io.FilenameUtils;
 
-import java.util.Date;
 import java.util.List;
 
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;

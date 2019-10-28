@@ -1,266 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EnrollmentActivity">
+    android:orientation="vertical"
+    tools:context=".EnrollmentActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/mode_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/language_container"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/preference_textView"
-            tools:ignore="UselessParent">
-
-            <Spinner
-                android:id="@+id/mode_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/mode" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/language_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/mode_container"
-            app:layout_constraintTop_toBottomOf="@+id/preference_textView"
-            tools:ignore="UselessParent">
-
-            <Spinner
-                android:id="@+id/language_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/barrier_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/preferred_time_container"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mode_container"
-            tools:ignore="UselessParent">
-
-            <Spinner
-                android:id="@+id/barrier_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/barrier" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/enrollment_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/enrollment_form"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/child_detail_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/personal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enrollment_textView" />
-
-        <TextView
-            android:id="@+id/preference_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/preference"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gender_container" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/child_name_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/child_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/child_detail_textView">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/child_name_et"
+            <TextView
+                android:id="@+id/enrollment_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Enrollment Form"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/child_mr_container"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:focusable="true"
+                android:hint="MR Number(0000000)">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/child_dob_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/dob"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/child_name_container">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/child_mr_et"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/child_dob_et"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/child_dob_container"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Date of Birth">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/child_mr_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/mr_number"
-            app:layout_constraintEnd_toStartOf="@+id/child_contact_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/child_dob_container">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/child_dob_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/child_mr_et"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                    android:id="@+id/mode_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:entries="@array/mode" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/child_contact_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/contact_number"
-            app:layout_constraintBottom_toBottomOf="@+id/child_mr_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/child_mr_container">
+                <Spinner
+                    android:id="@+id/language_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/contact_et"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                    android:id="@+id/barrier_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:entries="@array/barrier" />
 
-        <LinearLayout
-            android:id="@+id/gender_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/relation_container"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/child_mr_container"
-            tools:ignore="UselessParent">
+                <Spinner
+                    android:id="@+id/preferred_time_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:entries="@array/preferred_time" />
 
-            <Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/gender" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Register" />
+
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/relation_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/gender_container"
-            app:layout_constraintTop_toBottomOf="@+id/child_mr_container"
-            tools:ignore="UselessParent">
-
-            <Spinner
-                android:id="@+id/relation_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/relation" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/preferred_time_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/barrier_container"
-            app:layout_constraintTop_toTopOf="@+id/barrier_container">
-
-            <Spinner
-                android:id="@+id/preferred_time_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/preferred_time" />
-        </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/terms_checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Agree Terms And Conditions"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/preferred_time_container" />
-
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/terms_checkBox" />
+    </ScrollView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</LinearLayout>

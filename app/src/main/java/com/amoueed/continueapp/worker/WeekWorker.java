@@ -11,11 +11,12 @@ import androidx.core.app.NotificationCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.amoueed.continueapp.ContentIdentifier;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.database.AppDatabase;
 import com.amoueed.continueapp.database.AppExecutors;
 import com.amoueed.continueapp.database.WeekEntry;
-import com.amoueed.continueapp.ui.main.MainActivity;
+import com.amoueed.continueapp.main.MainActivity;
 
 import java.util.Date;
 
@@ -44,7 +45,7 @@ public class WeekWorker extends Worker {
         SharedPreferences sharedPref = ctx.getSharedPreferences("count",Context.MODE_PRIVATE);
         int count = sharedPref.getInt("count",1);
         String extension;
-        if(MainActivity.CONTENT_IDENTIFIER.equals("2")){
+        if(new ContentIdentifier().CONTENT_IDENTIFIER.equals("2")){
             extension = "wav";
         }else{
             extension = "txt";

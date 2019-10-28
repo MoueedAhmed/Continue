@@ -9,20 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.NotificationDetailActivity"></activity>
-        <activity android:name=".ui.TestActivity"></activity>
+        <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".ui.NotificationDetailActivity" />
+        <activity android:name=".ui.TestActivity" />
         <activity
-            android:name=".ui.PolicyActivity"
+            android:name=".PolicyActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".ui.SuccessActivity">
-        </activity>
-        <activity android:name=".ui.EnrollmentActivity" />
+        <activity android:name=".ui.SuccessActivity"></activity>
+        <activity android:name=".EnrollmentActivity" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name=".SplashScreenActivity"
             android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,12 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".AlarmReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
     </application>
 
 </manifest>

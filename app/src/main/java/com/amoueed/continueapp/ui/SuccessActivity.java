@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.amoueed.continueapp.worker.DailyWorker;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.worker.WeekWorker;
-import com.amoueed.continueapp.ui.main.MainActivity;
+import com.amoueed.continueapp.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -144,18 +144,6 @@ public class SuccessActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         createChannel();
-
-//        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
-//        PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
-//                (this, NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        long repeatInterval = 10000L;
-//        long triggerTime = SystemClock.elapsedRealtime() + repeatInterval;
-//        if (alarmManager != null) {
-//            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-//                            triggerTime, repeatInterval, notifyPendingIntent);
-//        }
 
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder
                 (WeekWorker.class, 15, TimeUnit.MINUTES)

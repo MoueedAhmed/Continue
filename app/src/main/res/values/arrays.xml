@@ -1,42 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="gender">
-        <item>Gender</item>
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
-
     <string-array name="mode">
         <item>Mode</item>
-        <item>Text One Way</item>
-        <item>Text Two Way</item>
-        <item>Audio One Way</item>
-        <item>Audio Two Way</item>
+        <item>Text</item>
+        <item>Audio</item>
     </string-array>
-
     <string-array name="barrier">
         <item>Barrier</item>
         <item>Forget RI due date</item>
         <item>Lack of awareness for immunization</item>
-        <item>Not permitted by family member</item>
-        <item>Low level of trust for government EPI</item>
-        <item>Religious belief</item>
         <item>Adverse effects</item>
+        <item>Combo</item>
     </string-array>
-
-    <string-array name="relation">
-        <item>Relation</item>
-        <item>Father</item>
-        <item>Mother</item>
-    </string-array>
-
     <string-array name="preferred_time">
-        <item>Preferred Notification Time</item>
+        <item>Notification Time</item>
         <item>Morning</item>
         <item>Afternoon</item>
         <item>Evening</item>
-        <item>Night</item>
+        <item>Any Time</item>
     </string-array>
-
-
 </resources>

@@ -1,4 +1,4 @@
-package com.amoueed.continueapp.ui;
+package com.amoueed.continueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-
-import com.amoueed.continueapp.R;
 
 public class PolicyActivity extends AppCompatActivity {
 
@@ -19,7 +17,7 @@ public class PolicyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_policy);
-        setTitle("CoNTiNuE");
+        setTitle("CoNTINuE");
         this.setFinishOnTouchOutside(false);
 
         policy_webview = findViewById(R.id.policy_webview);
