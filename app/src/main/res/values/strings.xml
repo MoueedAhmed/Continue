@@ -11,11 +11,8 @@
     <string name="menu_resource">Resource</string>
     <string name="menu_communicate">Communicate</string>
     <string name="menu_about">About Us</string>
-    <string name="menu_feedback">Feedback</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="feedback">Feedback</string>
     <string name="send">SEND</string>
     <string name="cancel">CANCEL</string>
     <string name="about_us">About Us</string>
@@ -23,16 +20,8 @@
     <string name="resources">Resources</string>
     <string name="schedule">Schedule</string>
     <string name="enrollment_form">Enrollment Form</string>
-    <string name="child_name">Child Name</string>
-    <string name="dob">DOB</string>
     <string name="mr_number">MR Number</string>
-    <string name="personal">Personal</string>
-    <string name="preference">Preference</string>
-    <string name="contact_number">Contact Number</string>
-    <string name="relation_with_child">Relation with Child</string>
     <string name="preferred_time">Preferred Time</string>
-    <string name="success">Success</string>
-    <string name="summary">Summary</string>
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
     <string name="download_content">Download Content</string>

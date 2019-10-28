@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity
         // Create a reference with an initial file path and name
         StorageReference dirReference = storageRef.child(dirLocationFirebase);
 
-        //final File directory = getStorageDir(SuccessActivity.this, "content");
         final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
         dialog.setCancelable(true);
         dialog.setMessage("Downloading content, please wait.");
