@@ -1,6 +1,8 @@
 package com.amoueed.continueapp.main;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,9 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.amoueed.continueapp.ContentIdentifier;
+import com.amoueed.continueapp.WelcomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -39,9 +44,6 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ContentIdentifier contentIdentifier = new ContentIdentifier();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +53,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("CoNTINuE");
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.keepSynced(true);
+        syncWithFirebaseDatabase();
+
+
 
         if (savedInstanceState == null) {
             Fragment newFragment = new NotificationFragment();
@@ -97,7 +99,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_download) {
-            downloadContent(contentIdentifier.CONTENT_IDENTIFIER);
+            SharedPreferences sharedPref = getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+            String content_identifier = sharedPref.getString("content_identifier","");
+            downloadContent(content_identifier);
             return true;
         }
 
@@ -156,6 +160,7 @@ public class MainActivity extends AppCompatActivity
                             File file = null;
                             try {
                                 file = new File(getFilesDir(), item.getName());
+                                Toast.makeText(MainActivity.this, "Please wait, content is downloading!", Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
@@ -186,4 +191,13 @@ public class MainActivity extends AppCompatActivity
         //[End] Downloading content from Firebase
     }
 
+    private void syncWithFirebaseDatabase() {
+        try {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }catch (Exception e){
+            Log.e("MainActivity",e.getMessage());
+        }
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
+    }
 }

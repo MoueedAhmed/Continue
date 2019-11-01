@@ -1,22 +1,33 @@
 package com.amoueed.continueapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amoueed.continueapp.firebasemodel.EnrollmentModel;
 import com.amoueed.continueapp.main.MainActivity;
 import com.amoueed.continueapp.ui.SuccessActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -41,6 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button start_btn;
     private Button exit_btn;
     private String contentType;
+    private TextView welcome_tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +61,10 @@ public class WelcomeActivity extends AppCompatActivity {
         getDataFromIntent();
         syncWithFirebaseDatabase();
 
+
         start_btn = findViewById(R.id.start_btn);
         exit_btn = findViewById(R.id.exit_btn);
+        welcome_tv = findViewById(R.id.welcome_tv);
 
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +90,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
         insertEnrollmentToFirebase();
 
-        TextView welcome_tv = findViewById(R.id.welcome_tv);
         contentType = checkCombinationAndSetContentIdentifierSharedPref(mode, language, barrier);
         setWelcomeTextViewMessage(welcome_tv, contentType);
+        downloadContent(contentType);
     }
 
     private void getDataFromIntent() {
@@ -98,7 +112,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void addWelcomeMessages() {
-        welcomeMessages = new Hashtable<String,String>();
+        welcomeMessages = new Hashtable<>();
         welcomeMessages.put("u","آغا خان یونیورسٹی کی طرف سے ہر ہفتے آپ کو پیغام ملتا رہے گا" +
                 " بچوں کو تمام حفاظتی ٹیکے وقت پر لگوائیں");
         welcomeMessages.put("ru","Aga Khan University  ki taraf se Har hafte ap ko paigham milta rhega." +
@@ -261,5 +275,52 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
+    private void downloadContent(String contentIdentifier) {
+        //[Start] Downloading content from Firebase
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        String dirLocationFirebase = "content/"+contentIdentifier;
+        // Create a reference with an initial file path and name
+        StorageReference dirReference = storageRef.child(dirLocationFirebase);
+
+        dirReference.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        for (StorageReference item : listResult.getItems()) {
+                            // All the items under listRef.
+                            File file = null;
+                            try {
+                                file = new File(getFilesDir(), item.getName());
+                                Toast.makeText(WelcomeActivity.this, "Please wait, content is downloading!", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Toast.makeText(WelcomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+
+
+                            item.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    Toast.makeText(WelcomeActivity.this, "Failed downloading", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(WelcomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //[End] Downloading content from Firebase
+    }
 }
 

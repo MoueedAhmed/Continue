@@ -2,6 +2,7 @@ package com.amoueed.continueapp.main.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -26,6 +27,7 @@ import com.amoueed.continueapp.db.AppDatabase;
 import com.amoueed.continueapp.db.AppExecutors;
 import com.amoueed.continueapp.db.LocalNotificationDataEntry;
 import com.amoueed.continueapp.db.LocalNotificationViewModel;
+import com.amoueed.continueapp.ui.NotificationDetailActivity;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -59,8 +61,13 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        if(new ContentIdentifier().CONTENT_IDENTIFIER.equals("0")){
+        SharedPreferences sharedPref =getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        String content_identifier = sharedPref.getString("content_identifier","");
+        if(content_identifier.startsWith("t")){
             insertLocalNotificationData("txt");
+        }
+        else{
+            insertLocalNotificationData("wav");
         }
 
 
@@ -73,26 +80,27 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
         mRecyclerView.setAdapter(mAdapter);
         DividerItemDecoration decoration = new DividerItemDecoration(getActivity().getApplicationContext(), VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-            // Called when a user swipes left or right on a ViewHolder
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        int position = viewHolder.getAdapterPosition();
-                        List<LocalNotificationDataEntry> tasks = mAdapter.getEntries();
-                        //Call deleteTask in the taskDao with the task at that position
-                        mDb.localNotificationDataDao().deleteEntry(tasks.get(position));
-                        //Call retrieveTasks method to refresh the UI
-                    }
-                });
-            }
-        }).attachToRecyclerView(mRecyclerView);
+
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//            // Called when a user swipes left or right on a ViewHolder
+//            @Override
+//            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+//                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        int position = viewHolder.getAdapterPosition();
+//                        List<LocalNotificationDataEntry> tasks = mAdapter.getEntries();
+//                        //Call deleteTask in the taskDao with the task at that position
+//                        mDb.localNotificationDataDao().deleteEntry(tasks.get(position));
+//                        //Call retrieveTasks method to refresh the UI
+//                    }
+//                });
+//            }
+//        }).attachToRecyclerView(mRecyclerView);
 
         setupLocalNotificationViewModel();
         return rootView;
@@ -100,24 +108,30 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
 
     private void insertLocalNotificationData(String extension) {
         SharedPreferences sharedPref = getContext().getSharedPreferences("count", Context.MODE_PRIVATE);
-        int count = sharedPref.getInt("count",-1);
+        int count = sharedPref.getInt("count",0);
         if(count<=1){
-            String file_name = count+"."+extension;
-            File file = new File(getContext().getFilesDir(), file_name);
-            StringBuilder text = new StringBuilder();
+            if(extension.equals("txt")){
+                String file_name = count+"."+extension;
+                File file = new File(getContext().getFilesDir(), file_name);
+                StringBuilder text = new StringBuilder();
 
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String line;
 
-                while ((line = br.readLine()) != null) {
-                    text.append(line);
-                    text.append('\n');
+                    while ((line = br.readLine()) != null) {
+                        text.append(line);
+                        text.append('\n');
+                    }
+                    br.close();
+                    addLocalNotificationDataEntryToDB("CoNTINuE",text.substring(0,50)+"......",file_name);
+                } catch (IOException e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                br.close();
-                addLocalNotificationDataEntryToDB("CoNTINuE",text.substring(0,50)+"......",file_name);
-            } catch (IOException e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            else{
+                String file_name = count+"."+extension;
+                addLocalNotificationDataEntryToDB("CoNTINuE","You have audio message",file_name);
             }
         }
 
@@ -128,7 +142,11 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
 
     @Override
     public void onItemClickListener(int itemId) {
-//        Intent in = new Intent(getActivity(), NotificationDetailActivity.class);
+        Intent in = new Intent(getActivity(), NotificationDetailActivity.class);
+        List<LocalNotificationDataEntry> entries = mAdapter.getEntries();
+        LocalNotificationDataEntry entry = entries.get(itemId);
+        in.putExtra("file_name",entry.getFile_name());
+        startActivity(in);
 //        List<WeekEntry> weeks =  mAdapter.getWeeks();
 //        in.putExtra(FILE_NAME, weeks.get(itemId-1).getId()+"."+getExtension(weeks.get(itemId-1).getResource_path()));
 //        startActivity(in);

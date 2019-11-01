@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -26,14 +27,12 @@ import java.util.concurrent.TimeUnit;
 
 public class NotificationDetailActivity extends AppCompatActivity {
 
-    private static final String FILE_NAME = "fileName";
-
     private Intent intent;
     private String fileName;
     private TextView info_text;
     private LinearLayout audio_control_ll;
 
-    private Button forward_button, pause_button, play_button, backward_button;
+    private ImageButton forward_button, pause_button, play_button, backward_button;
     private MediaPlayer mediaPlayer;
     private double startTime = 0;
     private double finalTime = 0;
@@ -52,12 +51,19 @@ public class NotificationDetailActivity extends AppCompatActivity {
         }
     };
 
+    private Button more_text_btn;
+    private TextView info_0_text;
+    int count_more_text_btn =0;
+    private TextView info_1_text;
+    private Button new_audio_btn;
+    int count_new_audio_btn = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         intent = getIntent();
-        fileName = intent.getStringExtra(FILE_NAME);
+        fileName = intent.getStringExtra("file_name");
 
         setContentView(R.layout.activity_notification_detail);
         setTitle("CoNTiNuE");
@@ -65,8 +71,70 @@ public class NotificationDetailActivity extends AppCompatActivity {
         info_text = findViewById(R.id.info_text);
         audio_control_ll = findViewById(R.id.audio_control_ll);
 
+        more_text_btn = findViewById(R.id.more_text_btn);
+        info_0_text = findViewById(R.id.info_0_text);
+        info_1_text = findViewById(R.id.info_1_text);
+
+        new_audio_btn = findViewById(R.id.new_audio_btn);
 
         if (getExtension(fileName).equals("txt")) {
+            more_text_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(count_more_text_btn == 0){
+                        info_0_text.setVisibility(View.VISIBLE);
+
+                        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
+                        String newFileName = tokens[0].concat("_0.txt");
+
+                        File file = new File(getFilesDir(), newFileName);
+                        StringBuilder text = new StringBuilder();
+
+                        try {
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            String line;
+
+                            while ((line = br.readLine()) != null) {
+                                text.append(line);
+                                text.append('\n');
+                            }
+                            br.close();
+
+                            info_0_text.setText(text);
+                            count_more_text_btn++;
+                        } catch (IOException e) {
+                            Toast.makeText(NotificationDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }else if(count_more_text_btn == 1){
+                        info_1_text.setVisibility(View.VISIBLE);
+
+                        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
+                        String newFileName = tokens[0].concat("_1.txt");
+
+                        File file = new File(getFilesDir(), newFileName);
+                        StringBuilder text = new StringBuilder();
+
+                        try {
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            String line;
+
+                            while ((line = br.readLine()) != null) {
+                                text.append(line);
+                                text.append('\n');
+                            }
+                            br.close();
+
+                            info_1_text.setText(text);
+                            count_more_text_btn++;
+                        } catch (IOException e) {
+                            Toast.makeText(NotificationDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                }
+            });
+
             info_text.setVisibility(View.VISIBLE);
             audio_control_ll.setVisibility(View.GONE);
             File file = new File(getFilesDir(), fileName);
@@ -88,7 +156,86 @@ public class NotificationDetailActivity extends AppCompatActivity {
             }
         } else if (getExtension(fileName).equals("wav")) {
             info_text.setVisibility(View.GONE);
+            more_text_btn.setVisibility(View.GONE);
             audio_control_ll.setVisibility(View.VISIBLE);
+            new_audio_btn.setVisibility(View.VISIBLE);
+
+            new_audio_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mediaPlayer.pause();
+                    pause_button.setEnabled(false);
+                    play_button.setEnabled(true);
+
+                    if(count_new_audio_btn==0){
+                        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
+                        String newFileName = tokens[0].concat("_0.wav");
+
+                        String path = getFilesDir().getAbsolutePath() + "/"+ newFileName;
+                        mediaPlayer = new MediaPlayer();
+
+                        try {
+                            mediaPlayer.setDataSource(path);
+                            mediaPlayer.prepare();
+                        } catch (IllegalArgumentException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            System.out.println("Exception of type : " + e.toString());
+                            e.printStackTrace();
+                        }
+                        count_new_audio_btn++;
+                        mediaPlayer.start();
+                        finalTime = mediaPlayer.getDuration();
+                        startTime = mediaPlayer.getCurrentPosition();
+                        seekbar.setMax((int) finalTime);
+
+                        length_tv.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) finalTime), TimeUnit.MILLISECONDS.toSeconds((long) finalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime)))
+                        );
+
+                        counter_tv.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
+                        );
+
+                        seekbar.setProgress((int) startTime);
+                        myHandler.postDelayed(UpdateSongTime, 100);
+                        pause_button.setEnabled(true);
+                        play_button.setEnabled(false);
+                    }
+                    else if(count_new_audio_btn==1){
+                        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
+                        String newFileName = tokens[0].concat("_1.wav");
+
+                        String path = getFilesDir().getAbsolutePath() + "/"+ newFileName;
+                        mediaPlayer = new MediaPlayer();
+
+                        try {
+                            mediaPlayer.setDataSource(path);
+                            mediaPlayer.prepare();
+                        } catch (IllegalArgumentException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            System.out.println("Exception of type : " + e.toString());
+                            e.printStackTrace();
+                        }
+                        count_new_audio_btn++;
+                        mediaPlayer.start();
+                        finalTime = mediaPlayer.getDuration();
+                        startTime = mediaPlayer.getCurrentPosition();
+                        seekbar.setMax((int) finalTime);
+
+                        length_tv.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) finalTime), TimeUnit.MILLISECONDS.toSeconds((long) finalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime)))
+                        );
+
+                        counter_tv.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
+                        );
+
+                        seekbar.setProgress((int) startTime);
+                        myHandler.postDelayed(UpdateSongTime, 100);
+                        pause_button.setEnabled(true);
+                        play_button.setEnabled(false);
+                    }
+
+                }
+            });
 
             forward_button = findViewById(R.id.forward_button);
             pause_button = findViewById(R.id.pause_button);
@@ -179,6 +326,15 @@ public class NotificationDetailActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mediaPlayer.pause();
+        pause_button.setEnabled(false);
+        play_button.setEnabled(true);
     }
 
     private String getExtension(String filename) {

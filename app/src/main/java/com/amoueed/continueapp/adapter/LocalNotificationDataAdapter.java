@@ -90,8 +90,8 @@ public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNoti
         }
         @Override
         public void onClick(View view) {
-            int elementId = mEntries.get(getAdapterPosition()).getId();
-            mItemClickListener.onItemClickListener(elementId);
+//            int elementId = mEntries.get(getAdapterPosition()).getId();
+            mItemClickListener.onItemClickListener(getAdapterPosition());
         }
     }
 }
