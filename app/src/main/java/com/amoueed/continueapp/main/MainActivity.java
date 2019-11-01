@@ -26,6 +26,8 @@ import com.amoueed.continueapp.main.fragment.AboutFragment;
 import com.amoueed.continueapp.main.fragment.NotificationFragment;
 import com.amoueed.continueapp.main.fragment.ResourceFragment;
 import com.amoueed.continueapp.main.fragment.ScheduleFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity
 
     ContentIdentifier contentIdentifier = new ContentIdentifier();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("CoNTINuE");
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
 
         if (savedInstanceState == null) {
             Fragment newFragment = new NotificationFragment();

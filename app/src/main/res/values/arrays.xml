@@ -7,9 +7,10 @@
     </string-array>
     <string-array name="barrier">
         <item>Barrier</item>
-        <item>Forget RI due date</item>
-        <item>Lack of awareness for immunization</item>
-        <item>Adverse effects</item>
+        <item>Reminder</item>
+        <item>Educational</item>
+        <item>Adverse effect</item>
+        <item>Religious</item>
         <item>Combo</item>
     </string-array>
     <string-array name="preferred_time">

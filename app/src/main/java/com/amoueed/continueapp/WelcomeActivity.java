@@ -2,7 +2,9 @@ package com.amoueed.continueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -33,28 +37,26 @@ public class WelcomeActivity extends AppCompatActivity {
     private String barrier;
     private String preferredTime;
     private DatabaseReference mDatabase;
-    private ArrayList<String> welcomeMessages;
+    private Dictionary<String,String> welcomeMessages;
     private Button start_btn;
     private Button exit_btn;
+    private String contentType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        intent = getIntent();
-        childMR = intent.getStringExtra(CHILD_MR);
-        childDOB = intent.getStringExtra(CHILD_DOB);
-        mode = intent.getStringExtra(MODE);
-        language = intent.getStringExtra(LANGUAGE);
-        barrier = intent.getStringExtra(BARRIER);
-        preferredTime = intent.getStringExtra(PREFERRED_TIME);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        getDataFromIntent();
+        syncWithFirebaseDatabase();
+
         start_btn = findViewById(R.id.start_btn);
         exit_btn = findViewById(R.id.exit_btn);
 
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                EnrollmentModel enrollmentModel = new EnrollmentModel(childMR, childDOB, mode, language, barrier, preferredTime);
+//                mDatabase.child("app_data").child("test").setValue(enrollmentModel);
                 Intent in = new Intent(WelcomeActivity.this, MainActivity.class);
                 startActivity(in);
                 finish();
@@ -64,20 +66,47 @@ public class WelcomeActivity extends AppCompatActivity {
         exit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                EnrollmentModel enrollmentModel = new EnrollmentModel(childMR, childDOB, mode, language, barrier, preferredTime);
+//                mDatabase.child("app_data").child("newTest").child("test").setValue(enrollmentModel);
                 finish();
             }
         });
-        welcomeMessages = new ArrayList<>();
-        welcomeMessages.add(0,"Aga Khan University k program Paigham e Sehat k taraf se Har hafte apko ek pegham milta rhega bacho  k lye zaruri hai k tamam Hifazati tekay wakt per lagwae jae ");
+
+        addWelcomeMessages();
 
         insertEnrollmentToFirebase();
 
         TextView welcome_tv = findViewById(R.id.welcome_tv);
+        contentType = checkCombinationAndSetContentIdentifierSharedPref(mode, language, barrier);
+        setWelcomeTextViewMessage(welcome_tv, contentType);
+    }
 
-        if(new ContentIdentifier().CONTENT_IDENTIFIER.equals("0")){
-            welcome_tv.setText(welcomeMessages.get(0));
-        }
+    private void getDataFromIntent() {
+        intent = getIntent();
+        childMR = intent.getStringExtra(CHILD_MR);
+        childDOB = intent.getStringExtra(CHILD_DOB);
+        mode = intent.getStringExtra(MODE);
+        language = intent.getStringExtra(LANGUAGE);
+        barrier = intent.getStringExtra(BARRIER);
+        preferredTime = intent.getStringExtra(PREFERRED_TIME);
+    }
 
+    private void syncWithFirebaseDatabase() {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
+    }
+
+    private void addWelcomeMessages() {
+        welcomeMessages = new Hashtable<String,String>();
+        welcomeMessages.put("u","آغا خان یونیورسٹی کی طرف سے ہر ہفتے آپ کو پیغام ملتا رہے گا" +
+                " بچوں کو تمام حفاظتی ٹیکے وقت پر لگوائیں");
+        welcomeMessages.put("ru","Aga Khan University  ki taraf se Har hafte ap ko paigham milta rhega." +
+                " Bacho  ko tamam Hifazati tekay waqt per lagwaye");
+        welcomeMessages.put("s","آغا خان يونيورسٽي  جي طرف کان هر هفتي توهان کي " +
+                " پيغام ملندو رهندو، ٻارن جي لاءِ ضروري آهي ته تمام حفاظتي ٽڪا وقت تي لڳرايا وڃن");
+        welcomeMessages.put("rs","Aga Khan university  jay taraf kan har haftay tawan kay pegham milando" +
+                " rehando, baran kay sabhi hifazti teeka wakt tay lagayo.");
     }
 
     //[start]
@@ -88,5 +117,149 @@ public class WelcomeActivity extends AppCompatActivity {
     }
     //[end]
     //Insert enrollment data to firebase
+
+    private String checkCombinationAndSetContentIdentifierSharedPref(String mode, String language, String barrier){
+
+        String content_identifier_value=null;
+
+        if(mode.equals("Text") && language.equals("Urdu") && barrier.equals("Reminder")){
+            content_identifier_value = "t_u_reminder";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu") && barrier.equals("Educational")){
+            content_identifier_value = "t_u_educational";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu") && barrier.equals("Adverse effect")){
+            content_identifier_value = "t_u_adverse";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu") && barrier.equals("Religious")){
+            content_identifier_value = "t_u_religious";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu") && barrier.equals("Combo")){
+            content_identifier_value = "t_u_combo";
+        }
+
+        else if (mode.equals("Text") && language.equals("Urdu Roman") && barrier.equals("Reminder")){
+            content_identifier_value = "t_ru_reminder";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu Roman") && barrier.equals("Educational")){
+            content_identifier_value = "t_ru_educational";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu Roman") && barrier.equals("Adverse effect")){
+            content_identifier_value = "t_ru_adverse";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu Roman") && barrier.equals("Religious")){
+            content_identifier_value = "t_ru_religious";
+        }
+        else if (mode.equals("Text") && language.equals("Urdu Roman") && barrier.equals("Combo")){
+            content_identifier_value = "t_ru_combo";
+        }
+
+        else if (mode.equals("Text") && language.equals("Sindhi") && barrier.equals("Reminder")){
+            content_identifier_value = "t_s_reminder";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi") && barrier.equals("Educational")){
+            content_identifier_value = "t_s_educational";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi") && barrier.equals("Adverse effect")){
+            content_identifier_value = "t_s_adverse";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi") && barrier.equals("Religious")){
+            content_identifier_value = "t_s_religious";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi") && barrier.equals("Combo")){
+            content_identifier_value = "t_s_combo";
+        }
+
+        else if (mode.equals("Text") && language.equals("Sindhi Roman") && barrier.equals("Reminder")){
+            content_identifier_value = "t_rs_reminder";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi Roman") && barrier.equals("Educational")){
+            content_identifier_value = "t_rs_educational";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi Roman") && barrier.equals("Adverse effect")){
+            content_identifier_value = "t_rs_adverse";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi Roman") && barrier.equals("Religious")){
+            content_identifier_value = "t_rs_religious";
+        }
+        else if (mode.equals("Text") && language.equals("Sindhi Roman") && barrier.equals("Combo")){
+            content_identifier_value = "t_rs_combo";
+        }
+
+        else if(mode.equals("Audio") && language.equals("Urdu") && barrier.equals("Reminder")){
+            content_identifier_value = "a_u_reminder";
+        }
+        else if (mode.equals("Audio") && language.equals("Urdu") && barrier.equals("Educational")){
+            content_identifier_value = "a_u_educational";
+        }
+        else if (mode.equals("Audio") && language.equals("Urdu") && barrier.equals("Adverse effect")){
+            content_identifier_value = "a_u_adverse";
+        }
+        else if (mode.equals("Audio") && language.equals("Urdu") && barrier.equals("Religious")){
+            content_identifier_value = "a_u_religious";
+        }
+        else if (mode.equals("Audio") && language.equals("Urdu") && barrier.equals("Combo")){
+            content_identifier_value = "a_u_combo";
+        }
+
+        else if(mode.equals("Audio") && language.equals("Sindhi") && barrier.equals("Reminder")){
+            content_identifier_value = "a_s_reminder";
+        }
+        else if (mode.equals("Audio") && language.equals("Sindhi") && barrier.equals("Educational")){
+            content_identifier_value = "a_s_educational";
+        }
+        else if (mode.equals("Audio") && language.equals("Sindhi") && barrier.equals("Adverse effect")){
+            content_identifier_value = "a_s_educational";
+        }
+        else if (mode.equals("Audio") && language.equals("Sindhi") && barrier.equals("Religious")){
+            content_identifier_value = "a_s_religious";
+        }
+        else if (mode.equals("Audio") && language.equals("Sindhi") && barrier.equals("Combo")){
+            content_identifier_value = "a_s_combo";
+        }
+
+        SharedPreferences sharedPref = getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("content_identifier",content_identifier_value);
+        editor.commit();
+
+        return content_identifier_value;
+    }
+
+    private void setWelcomeTextViewMessage(TextView welcome_tv, String contentType) {
+        if (contentType.equals("t_u_reminder") || contentType.equals("t_u_educational")
+                || contentType.equals("t_u_adverse") || contentType.equals("t_u_religious")
+                || contentType.equals("t_u_combo") || contentType.equals("a_u_reminder")
+                || contentType.equals("a_u_educational") || contentType.equals("a_u_adverse")
+                || contentType.equals("a_u_religious") || contentType.equals("a_u_combo")){
+
+            welcome_tv.setText(welcomeMessages.get("u"));
+
+        }
+        else if(contentType.equals("t_s_reminder") || contentType.equals("t_s_educational")
+                || contentType.equals("t_s_adverse") || contentType.equals("t_s_religious")
+                || contentType.equals("t_s_combo") || contentType.equals("a_s_reminder")
+                || contentType.equals("a_s_educational") || contentType.equals("a_s_adverse")
+                || contentType.equals("a_s_religious") || contentType.equals("a_s_combo")){
+
+            welcome_tv.setText(welcomeMessages.get("s"));
+
+        }
+        else if(contentType.equals("t_ru_reminder") || contentType.equals("t_ru_educational")
+                || contentType.equals("t_ru_adverse") || contentType.equals("t_ru_religious")
+                || contentType.equals("t_ru_combo")){
+
+            welcome_tv.setText(welcomeMessages.get("ru"));
+
+        }
+        else if(contentType.equals("t_rs_reminder") || contentType.equals("t_rs_educational")
+                || contentType.equals("t_rs_adverse") || contentType.equals("t_rs_religious")
+                || contentType.equals("t_rs_combo")){
+
+            welcome_tv.setText(welcomeMessages.get("rs"));
+
+        }
+    }
+
 }
 
