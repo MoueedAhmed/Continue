@@ -16,6 +16,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <sun.bob.mcalendarview.MCalendarView
+        android:id="@+id/schedule_mcal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

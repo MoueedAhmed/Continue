@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 
 import com.amoueed.continueapp.R;
 
+import sun.bob.mcalendarview.MCalendarView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment {
-
+    private MCalendarView schedule_mcal;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -23,8 +25,14 @@ public class ScheduleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        schedule_mcal =rootView.findViewById(R.id.schedule_mcal);
+        schedule_mcal.markDate(2019,11,7);
+        schedule_mcal.markDate(2019,11,15);
+        schedule_mcal.markDate(2019,12,16);
+
+        return rootView;
     }
 
 }

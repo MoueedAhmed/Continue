@@ -59,14 +59,14 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        SharedPreferences sharedPref =getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
-        String content_identifier = sharedPref.getString("content_identifier","");
-        if(content_identifier.startsWith("t")){
-            insertLocalNotificationData("txt");
-        }
-        else{
-            insertLocalNotificationData("wav");
-        }
+//        SharedPreferences sharedPref =getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+//        String content_identifier = sharedPref.getString("content_identifier","");
+//        if(content_identifier.startsWith("t")){
+//            insertLocalNotificationData("txt");
+//        }
+//        else{
+//            insertLocalNotificationData("wav");
+//        }
 
 
         mRecyclerView = rootView.findViewById(R.id.week_rv);
@@ -104,39 +104,39 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
         return rootView;
     }
 
-    private void insertLocalNotificationData(String extension) {
-        SharedPreferences sharedPref = getContext().getSharedPreferences("count", Context.MODE_PRIVATE);
-        int count = sharedPref.getInt("count",0);
-        if(count<=1){
-            if(extension.equals("txt")){
-                String file_name = count+"."+extension;
-                File file = new File(getContext().getFilesDir(), file_name);
-                StringBuilder text = new StringBuilder();
-
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    String line;
-
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
-                    }
-                    br.close();
-                    addLocalNotificationDataEntryToDB("CoNTINuE",text.substring(0,50)+"......",file_name);
-                } catch (IOException e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-            else{
-                String file_name = count+"."+extension;
-                addLocalNotificationDataEntryToDB("CoNTINuE","You have audio message",file_name);
-            }
-        }
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("count",count+1);
-        editor.commit();
-    }
+//    private void insertLocalNotificationData(String extension) {
+//        SharedPreferences sharedPref = getContext().getSharedPreferences("count", Context.MODE_PRIVATE);
+//        int count = sharedPref.getInt("count",0);
+//        if(count<=1){
+//            if(extension.equals("txt")){
+//                String file_name = count+"."+extension;
+//                File file = new File(getContext().getFilesDir(), file_name);
+//                StringBuilder text = new StringBuilder();
+//
+//                try {
+//                    BufferedReader br = new BufferedReader(new FileReader(file));
+//                    String line;
+//
+//                    while ((line = br.readLine()) != null) {
+//                        text.append(line);
+//                        text.append('\n');
+//                    }
+//                    br.close();
+//                    addLocalNotificationDataEntryToDB("CoNTINuE",text.substring(0,50)+"......",file_name);
+//                } catch (IOException e) {
+//                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//            else{
+//                String file_name = count+"."+extension;
+//                addLocalNotificationDataEntryToDB("CoNTINuE","You have audio message",file_name);
+//            }
+//        }
+//
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.putInt("count",count+1);
+//        editor.commit();
+//    }
 
     @Override
     public void onItemClickListener(int itemId) {
@@ -145,10 +145,6 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
         LocalNotificationDataEntry entry = entries.get(itemId);
         in.putExtra("file_name",entry.getFile_name());
         startActivity(in);
-//        List<WeekEntry> weeks =  mAdapter.getWeeks();
-//        in.putExtra(FILE_NAME, weeks.get(itemId-1).getId()+"."+getExtension(weeks.get(itemId-1).getResource_path()));
-//        startActivity(in);
-
     }
 
     private void setupLocalNotificationViewModel() {
@@ -166,19 +162,15 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
     }
 
     //create one row of LocalNotificationDataEntry in db
-    private void addLocalNotificationDataEntryToDB(String notification_type, String content, String file_name){
-        Date date = new Date();
-        final LocalNotificationDataEntry entry = new LocalNotificationDataEntry
-                (notification_type, content,file_name, date,0);
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.localNotificationDataDao().insertEntry(entry);
-            }
-        });
-    }
-
-    private String getExtension(String filename) {
-        return FilenameUtils.getExtension(filename);
-    }
+//    private void addLocalNotificationDataEntryToDB(String notification_type, String content, String file_name){
+//        Date date = new Date();
+//        final LocalNotificationDataEntry entry = new LocalNotificationDataEntry
+//                (notification_type, content,file_name, date,0);
+//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                mDb.localNotificationDataDao().insertEntry(entry);
+//            }
+//        });
+//    }
 }
