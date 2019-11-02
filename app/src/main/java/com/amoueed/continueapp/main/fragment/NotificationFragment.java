@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,14 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.amoueed.continueapp.ContentIdentifier;
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.adapter.LocalNotificationDataAdapter;
 import com.amoueed.continueapp.db.AppDatabase;
 import com.amoueed.continueapp.db.AppExecutors;
 import com.amoueed.continueapp.db.LocalNotificationDataEntry;
 import com.amoueed.continueapp.db.LocalNotificationViewModel;
-import com.amoueed.continueapp.ui.NotificationDetailActivity;
+import com.amoueed.continueapp.NotificationDetailActivity;
 
 import org.apache.commons.io.FilenameUtils;
 

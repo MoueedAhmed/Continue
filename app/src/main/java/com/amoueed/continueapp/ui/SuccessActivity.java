@@ -184,7 +184,7 @@ public class SuccessActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        // Check auth on Activity start
+        // Check auth on Activity enter
         if (mAuth.getCurrentUser() != null) {
             onAuthSuccess(mAuth.getCurrentUser());
         }

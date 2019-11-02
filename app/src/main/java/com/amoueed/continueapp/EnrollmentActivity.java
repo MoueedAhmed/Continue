@@ -75,7 +75,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         preferred_time_spinner = findViewById(R.id.preferred_time_spinner);
         mAuth = FirebaseAuth.getInstance();
 
-        //[start]
+        //[enter]
         //dynamically set languages spinner using mode spinner values
         mode_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -123,7 +123,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         //[end]
         //dynamically set languages spinner using mode spinner values
 
-        //[start]
+        //[enter]
         //create user and password only if data is valid
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +142,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         //[end]
         //create user and password only if data is valid
 
-        //[start]
+        //[enter]
         //show error if MR number is less than 7
         child_mr_et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -161,7 +161,7 @@ public class EnrollmentActivity extends AppCompatActivity{
         datePickerSetter();
     }
 
-    //[start]
+    //[enter]
     //create firebase credentials using MR Number and default password
     private void createAccount(String mr_no, String password) {
 

@@ -123,7 +123,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 " rehando, baran kay sabhi hifazti teeka wakt tay lagayo.");
     }
 
-    //[start]
+    //[enter]
     //Insert enrollment data to firebase
     private void insertEnrollmentToFirebase() {
         EnrollmentModel enrollmentModel = new EnrollmentModel(childMR, childDOB, mode, language, barrier, preferredTime);
@@ -235,6 +235,7 @@ public class WelcomeActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("content_identifier",content_identifier_value);
+        editor.putString("mr_number",childMR);
         editor.commit();
 
         return content_identifier_value;

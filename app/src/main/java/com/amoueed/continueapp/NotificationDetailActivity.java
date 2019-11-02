@@ -1,12 +1,14 @@
-package com.amoueed.continueapp.ui;
+package com.amoueed.continueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,7 +17,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.firebasemodel.NotificationDetailActivityModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -58,6 +62,14 @@ public class NotificationDetailActivity extends AppCompatActivity {
     private Button new_audio_btn;
     int count_new_audio_btn = 0;
 
+    private String enter;
+    private String exit;
+    private String read_main = "No";
+    private String read_0 = "No";
+    private String read_1 = "No";
+    private String notification;
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +79,9 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_notification_detail);
         setTitle("CoNTiNuE");
+
+        notification = fileName;
+        syncWithFirebaseDatabase();
 
         info_text = findViewById(R.id.info_text);
         audio_control_ll = findViewById(R.id.audio_control_ll);
@@ -83,6 +98,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     if(count_more_text_btn == 0){
+                        read_0 = "Yes";
                         info_0_text.setVisibility(View.VISIBLE);
 
                         String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
@@ -107,6 +123,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                             Toast.makeText(NotificationDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }else if(count_more_text_btn == 1){
+                        read_1 = "Yes";
                         info_1_text.setVisibility(View.VISIBLE);
 
                         String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
@@ -135,6 +152,8 @@ public class NotificationDetailActivity extends AppCompatActivity {
                 }
             });
 
+            read_main = "Yes";
+
             info_text.setVisibility(View.VISIBLE);
             audio_control_ll.setVisibility(View.GONE);
             File file = new File(getFilesDir(), fileName);
@@ -155,6 +174,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                 Toast.makeText(NotificationDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         } else if (getExtension(fileName).equals("wav")) {
+            read_main = "Yes";
             info_text.setVisibility(View.GONE);
             more_text_btn.setVisibility(View.GONE);
             audio_control_ll.setVisibility(View.VISIBLE);
@@ -168,6 +188,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                     play_button.setEnabled(true);
 
                     if(count_new_audio_btn==0){
+                        read_0 = "Yes";
                         String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
                         String newFileName = tokens[0].concat("_0.wav");
 
@@ -201,6 +222,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                         play_button.setEnabled(false);
                     }
                     else if(count_new_audio_btn==1){
+                        read_1 = "Yes";
                         String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
                         String newFileName = tokens[0].concat("_1.wav");
 
@@ -329,13 +351,47 @@ public class NotificationDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        enter = System.currentTimeMillis() +"";
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
 
-        mediaPlayer.pause();
-        pause_button.setEnabled(false);
-        play_button.setEnabled(true);
+        exit = System.currentTimeMillis() +"";
+
+        if (getExtension(fileName).equals("wav")){
+            mediaPlayer.pause();
+            pause_button.setEnabled(false);
+            play_button.setEnabled(true);
+        }
+
+        insertNotificationDetailActivityModelToFirebase();
     }
+
+    private void syncWithFirebaseDatabase() {
+        try{
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }catch (Exception e){
+            Log.e("NotificationDetail", e.getMessage());
+        }
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
+    }
+
+    private void insertNotificationDetailActivityModelToFirebase() {
+        String[] tokens = notification.split("\\.(?=[^\\.]+$)");
+        NotificationDetailActivityModel model = new NotificationDetailActivityModel(enter,exit,read_main, read_0, read_1,notification);
+        SharedPreferences sharedPref = getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        String childMR = sharedPref.getString("mr_number","");
+        mDatabase.child("app_data").child(childMR).child("NotificationDetailActivity").child(tokens[0]).push().setValue(model);
+    }
+
+
 
     private String getExtension(String filename) {
         return FilenameUtils.getExtension(filename);
