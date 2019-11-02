@@ -24,5 +24,8 @@ public interface LocalNotificationDataDao {
 
     @Delete
     void deleteEntry(LocalNotificationDataEntry entry);
+
+    @Query("SELECT * FROM notification_entry WHERE file_name = :file_name")
+    LocalNotificationDataEntry loadEntryByFileName(String file_name);
 }
 

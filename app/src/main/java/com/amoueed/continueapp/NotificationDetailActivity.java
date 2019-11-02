@@ -17,6 +17,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amoueed.continueapp.db.AppDatabase;
+import com.amoueed.continueapp.db.AppExecutors;
+import com.amoueed.continueapp.db.LocalNotificationDataEntry;
 import com.amoueed.continueapp.firebasemodel.NotificationDetailActivityModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -70,6 +73,8 @@ public class NotificationDetailActivity extends AppCompatActivity {
     private String notification;
     private DatabaseReference mDatabase;
 
+    private AppDatabase mDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +84,16 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_notification_detail);
         setTitle("CoNTiNuE");
+
+        mDb = AppDatabase.getInstance(getApplicationContext());
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final LocalNotificationDataEntry task = mDb.localNotificationDataDao().loadEntryByFileName(fileName);
+                task.setFlag(1);
+                mDb.localNotificationDataDao().updateEntry(task);
+            }
+        });
 
         notification = fileName;
         syncWithFirebaseDatabase();

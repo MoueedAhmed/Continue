@@ -1,9 +1,11 @@
 package com.amoueed.continueapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,11 +45,19 @@ public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNoti
         String notification_type = entry.getNotification_type();
         String content = entry.getContent();
         String updatedAt = dateFormat.format(entry.getUpdatedAt());
+        int read_flag = entry.getFlag();
+
 
         //Set values
         holder.notification_type_tv.setText(notification_type);
         holder.date_tv.setText(updatedAt);
         holder.content_tv.setText(content);
+
+        if(read_flag == 0){
+            holder.container_ll.setBackgroundColor(Color.YELLOW);
+        }else{
+            holder.container_ll.setBackgroundColor(Color.WHITE);
+        }
     }
 
     @Override
@@ -77,12 +87,13 @@ public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNoti
 
 
     class LocalNotificationDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        LinearLayout container_ll;
         TextView notification_type_tv;
         TextView content_tv;
         TextView date_tv;
         public LocalNotificationDataViewHolder(View itemView) {
             super(itemView);
-
+            container_ll = itemView.findViewById(R.id.container_ll);
             notification_type_tv = itemView.findViewById(R.id.notification_type_tv);
             content_tv = itemView.findViewById(R.id.content_tv);
             date_tv = itemView.findViewById(R.id.date_tv);
