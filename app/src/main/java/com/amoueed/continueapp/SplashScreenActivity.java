@@ -38,7 +38,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         titleImage.startAnimation(startAnimation);
 
 
-        mSplashHandler.sendEmptyMessageDelayed(SplashHandler.TIMER_EXPIRED, 3000);
+        mSplashHandler.sendEmptyMessageDelayed(SplashHandler.TIMER_EXPIRED, 1500);
     }
 
     class SplashHandler extends Handler {
