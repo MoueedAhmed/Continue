@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="mode">
-        <item>Mode</item>
         <item>Text</item>
         <item>Audio</item>
     </string-array>
     <string-array name="barrier">
-        <item>Barrier</item>
         <item>Reminder</item>
         <item>Educational</item>
         <item>Adverse effect</item>
@@ -14,10 +12,9 @@
         <item>Combo</item>
     </string-array>
     <string-array name="preferred_time">
-        <item>Notification Time</item>
+        <item>Any Time</item>
         <item>Morning</item>
         <item>Afternoon</item>
         <item>Evening</item>
-        <item>Any Time</item>
     </string-array>
 </resources>

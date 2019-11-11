@@ -88,14 +88,12 @@ public class EnrollmentActivity extends AppCompatActivity{
                         EnrollmentActivity.this, android.R.layout.simple_spinner_item, languageArray);
 
                 if (mode_spinner.getSelectedItem().toString().equals("Text")) {
-                    languageArray.add("Language");
                     languageArray.add("Urdu");
                     languageArray.add("Sindhi");
                     languageArray.add("Urdu Roman");
                     languageArray.add("Sindhi Roman");
                     adapter.notifyDataSetChanged();
                 } else {
-                    languageArray.add("Language");
                     languageArray.add("Urdu");
                     languageArray.add("Sindhi");
                     adapter.notifyDataSetChanged();
@@ -110,7 +108,7 @@ public class EnrollmentActivity extends AppCompatActivity{
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // you need to have a list of data that you want the spinner to display
                 List<String> languageArray = new ArrayList<String>();
-                languageArray.add("Language");
+                languageArray.add("Urdu");
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                         EnrollmentActivity.this, android.R.layout.simple_spinner_item, languageArray);

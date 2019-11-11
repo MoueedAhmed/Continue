@@ -17,11 +17,12 @@
 
             <TextView
                 android:id="@+id/enrollment_textView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Enrollment Form"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:text="Enrollment Form"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -37,10 +38,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/child_mr_et"
-                    android:inputType="number"
-                    android:maxLength="7"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="7" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,50 +64,93 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mode: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <Spinner
                     android:id="@+id/mode_spinner"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:entries="@array/mode" />
-
-                <Spinner
-                    android:id="@+id/language_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1" />
+                    android:entries="@array/mode"
+                    android:textAlignment="textEnd" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Language: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <Spinner
-                    android:id="@+id/barrier_spinner"
-                    android:layout_width="0dp"
+                    android:id="@+id/language_spinner"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:entries="@array/barrier" />
-
-                <Spinner
-                    android:id="@+id/preferred_time_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:entries="@array/preferred_time" />
+                    android:textAlignment="textEnd" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Barrier: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <Spinner
+                    android:id="@+id/barrier_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:entries="@array/barrier"
+                    android:textAlignment="textEnd" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Barrier: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <Spinner
+                    android:id="@+id/preferred_time_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:entries="@array/preferred_time"
+                    android:textAlignment="textEnd" />
+
+            </LinearLayout>
+
+
             <Button
                 android:id="@+id/register_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Register" />
+                android:text="Enroll Child" />
 
         </LinearLayout>
     </ScrollView>

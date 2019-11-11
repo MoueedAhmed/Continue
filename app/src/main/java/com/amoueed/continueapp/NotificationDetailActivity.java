@@ -264,7 +264,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
                         counter_tv.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
                         );
-
+                        new_audio_btn.setVisibility(View.GONE);
                         seekbar.setProgress((int) startTime);
                         myHandler.postDelayed(UpdateSongTime, 100);
                         pause_button.setEnabled(true);

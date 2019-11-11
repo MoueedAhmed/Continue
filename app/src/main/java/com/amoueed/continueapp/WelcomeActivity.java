@@ -34,7 +34,10 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.concurrent.TimeUnit;
@@ -70,14 +73,11 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         getDataFromIntent();
+        contentType = checkCombinationAndSetContentIdentifierSharedPref(mode, language, barrier);
         syncWithFirebaseDatabase();
         createChannel();
 
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest
-                .Builder(WeeklyNotificationWorker.class, 15, TimeUnit.MINUTES)
-                .setInitialDelay(1,TimeUnit.MINUTES)
-                .build();
-        WorkManager.getInstance(WelcomeActivity.this).enqueue(workRequest);
+        setWeeklyNotificationWorker();
 
         start_btn = findViewById(R.id.start_btn);
         exit_btn = findViewById(R.id.exit_btn);
@@ -107,9 +107,52 @@ public class WelcomeActivity extends AppCompatActivity {
 
         insertEnrollmentToFirebase();
 
-        contentType = checkCombinationAndSetContentIdentifierSharedPref(mode, language, barrier);
+
         setWelcomeTextViewMessage(welcome_tv, contentType);
         downloadContent(contentType);
+    }
+
+    private void setWeeklyNotificationWorker() {
+
+        SharedPreferences sharedPref =getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        String content_identifier = sharedPref.getString("dob","");
+
+        String dobString = content_identifier;
+        Date dob = null;
+        try {
+            dob=new SimpleDateFormat("dd/MM/yy").parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date dateCurrent = new Date();
+
+        long diff = dateCurrent.getTime() - dob.getTime();
+        long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        int initialDelayinDays = 42- (int) days;
+
+        Toast.makeText(WelcomeActivity.this,
+                initialDelayinDays+" days left for First Notification", Toast.LENGTH_LONG).show();
+
+        int initialDelay=1;
+        TimeUnit delayUnit=TimeUnit.MINUTES;
+        if(initialDelayinDays==0){
+            initialDelay = 1;
+            delayUnit = TimeUnit.MINUTES;
+        }else if(initialDelayinDays>0){
+            initialDelay = initialDelayinDays;
+            delayUnit = TimeUnit.DAYS;
+        }else {
+            Toast.makeText(WelcomeActivity.this,
+                    "Child age is bigger than required age for this application. App will not work properly",
+                    Toast.LENGTH_LONG).show();
+        }
+
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest
+                .Builder(WeeklyNotificationWorker.class, 15, TimeUnit.MINUTES)
+                .setInitialDelay(initialDelay,delayUnit)
+                .build();
+        WorkManager.getInstance(WelcomeActivity.this).enqueue(workRequest);
     }
 
     private void getDataFromIntent() {
@@ -219,6 +262,7 @@ public class WelcomeActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("content_identifier", content_identifier_value);
         editor.putString("mr_number", childMR);
+        editor.putString("dob", childDOB);
         editor.commit();
 
         return content_identifier_value;
