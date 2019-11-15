@@ -137,7 +137,7 @@ public class WelcomeActivity extends AppCompatActivity {
         int initialDelay=1;
         TimeUnit delayUnit=TimeUnit.MINUTES;
         if(initialDelayinDays==0){
-            initialDelay = 1;
+            initialDelay = 10;
             delayUnit = TimeUnit.MINUTES;
         }else if(initialDelayinDays>0){
             initialDelay = initialDelayinDays;

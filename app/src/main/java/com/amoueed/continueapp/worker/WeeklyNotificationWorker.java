@@ -84,7 +84,7 @@ public class WeeklyNotificationWorker extends Worker {
     private void insertLocalNotificationData(String extension) {
         SharedPreferences sharedPref = ctx.getSharedPreferences("count", Context.MODE_PRIVATE);
         int count = sharedPref.getInt("count",0);
-        if(count<=1){
+        if(count<=8){
             if(extension.equals("txt")){
                 String file_name = count+"."+extension;
                 File file = new File(ctx.getFilesDir(), file_name);
