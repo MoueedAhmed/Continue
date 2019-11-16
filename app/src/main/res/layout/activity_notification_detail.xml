@@ -86,7 +86,7 @@
 
                     <TextView
                         android:id="@+id/counter_tv"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="start"
@@ -104,7 +104,7 @@
 
                     <TextView
                         android:id="@+id/length_tv"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"

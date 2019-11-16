@@ -159,6 +159,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
                             info_1_text.setText(text);
                             count_more_text_btn++;
+                            more_text_btn.setVisibility(View.GONE);
                         } catch (IOException e) {
                             Toast.makeText(NotificationDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
