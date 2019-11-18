@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,10 @@ import com.amoueed.continueapp.db.AppExecutors;
 import com.amoueed.continueapp.db.LocalNotificationDataEntry;
 import com.amoueed.continueapp.db.LocalNotificationViewModel;
 import com.amoueed.continueapp.NotificationDetailActivity;
+import com.amoueed.continueapp.firebasemodel.NotificationFragmentModel;
+import com.amoueed.continueapp.firebasemodel.ScheduleFragmentModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -43,6 +48,10 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
     private RecyclerView mRecyclerView;
     private LocalNotificationDataAdapter mAdapter;
     private AppDatabase mDb;
+
+    private String enter;
+    private String exit;
+    private DatabaseReference mDatabase;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -159,6 +168,41 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
         });
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        syncWithFirebaseDatabase();
+        enter = System.currentTimeMillis() +"";
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        exit = System.currentTimeMillis() +"";
+
+        insertNotificationFragmentModelToFirebase();
+
+    }
+
+    private void syncWithFirebaseDatabase() {
+        try{
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }catch (Exception e){
+            Log.e("NotificationFragment", e.getMessage());
+        }
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
+    }
+
+    private void insertNotificationFragmentModelToFirebase() {
+        NotificationFragmentModel model = new NotificationFragmentModel(enter,exit);
+        SharedPreferences sharedPref = getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        String childMR = sharedPref.getString("mr_number","");
+        mDatabase.child("app_data").child(childMR).child("NotificationFragment").push().setValue(model);
     }
 
     //create one row of LocalNotificationDataEntry in db

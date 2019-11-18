@@ -5,12 +5,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.amoueed.continueapp.R;
+import com.amoueed.continueapp.db.AppDatabase;
+import com.amoueed.continueapp.firebasemodel.NotificationDetailActivityModel;
+import com.amoueed.continueapp.firebasemodel.ScheduleFragmentModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,6 +33,10 @@ import sun.bob.mcalendarview.MCalendarView;
  */
 public class ScheduleFragment extends Fragment {
     private MCalendarView schedule_mcal;
+
+    private String enter;
+    private String exit;
+    private DatabaseReference mDatabase;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -116,6 +127,41 @@ public class ScheduleFragment extends Fragment {
         date_20_tv.setText(df20.format(d20));
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        syncWithFirebaseDatabase();
+        enter = System.currentTimeMillis() +"";
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        exit = System.currentTimeMillis() +"";
+
+        insertScheduleFragmentModelToFirebase();
+
+    }
+
+    private void syncWithFirebaseDatabase() {
+        try{
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }catch (Exception e){
+            Log.e("ScheduleFragment", e.getMessage());
+        }
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
+    }
+
+    private void insertScheduleFragmentModelToFirebase() {
+        ScheduleFragmentModel model = new ScheduleFragmentModel(enter,exit);
+        SharedPreferences sharedPref = getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        String childMR = sharedPref.getString("mr_number","");
+        mDatabase.child("app_data").child(childMR).child("ScheduleFragment").push().setValue(model);
     }
 
 }
