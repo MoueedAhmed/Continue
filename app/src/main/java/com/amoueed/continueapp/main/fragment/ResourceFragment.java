@@ -2,14 +2,19 @@ package com.amoueed.continueapp.main.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.amoueed.continueapp.R;
 import com.amoueed.continueapp.firebasemodel.ResourceFragmentModel;
@@ -35,8 +40,26 @@ public class ResourceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_resource, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_resource, container, false);
+
+        Button ned_button = rootView.findViewById(R.id.ned_button);
+        ned_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.neduet.edu.pk/"));
+                startActivity(intent);
+            }
+        });
+
+        Button aku_button = rootView.findViewById(R.id.aku_button);
+        aku_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.aku.edu/Pages/home.aspx"));
+                startActivity(intent);
+            }
+        });
+        return rootView;
     }
 
     @Override
