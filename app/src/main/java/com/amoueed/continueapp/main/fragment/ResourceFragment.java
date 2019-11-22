@@ -42,11 +42,11 @@ public class ResourceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_resource, container, false);
 
-        Button ned_button = rootView.findViewById(R.id.ned_button);
-        ned_button.setOnClickListener(new View.OnClickListener() {
+        Button epi_button = rootView.findViewById(R.id.epi_button);
+        epi_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.neduet.edu.pk/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.epi.gov.pk/"));
                 startActivity(intent);
             }
         });
@@ -55,7 +55,25 @@ public class ResourceFragment extends Fragment {
         aku_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.aku.edu/Pages/home.aspx"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hospitals.aku.edu/pakistan/AboutUs/News/Pages/community-health-centre.aspx"));
+                startActivity(intent);
+            }
+        });
+
+        Button epis_button = rootView.findViewById(R.id.epis_button);
+        epis_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.epi.gov.pk/immunisation-schedule/"));
+                startActivity(intent);
+            }
+        });
+
+        Button who_button = rootView.findViewById(R.id.who_button);
+        who_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.who.int/ith/vaccines/en/"));
                 startActivity(intent);
             }
         });
