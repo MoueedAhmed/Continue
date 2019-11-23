@@ -1,6 +1,5 @@
 package com.amoueed.continueapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -529,7 +528,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
-                                public void onFailure(@NonNull Exception exception) {
+                                public void onFailure(Exception exception) {
                                     Toast.makeText(WelcomeActivity.this, "Failed downloading", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -538,7 +537,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
+                    public void onFailure(Exception e) {
                         Toast.makeText(WelcomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
