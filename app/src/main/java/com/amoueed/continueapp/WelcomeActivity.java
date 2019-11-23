@@ -114,10 +114,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setWeeklyNotificationWorker() {
 
-        SharedPreferences sharedPref =getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
-        String content_identifier = sharedPref.getString("dob","");
-
-        String dobString = content_identifier;
+        String dobString = childDOB;
         Date dob = null;
         try {
             dob=new SimpleDateFormat("dd/MM/yy").parse(dobString);
@@ -131,17 +128,218 @@ public class WelcomeActivity extends AppCompatActivity {
         long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         int initialDelayinDays = 42- (int) days;
 
-        Toast.makeText(WelcomeActivity.this,
-                initialDelayinDays+" days left for First Notification", Toast.LENGTH_LONG).show();
+        String preferredNotificationTime = preferredTime;
 
         int initialDelay=1;
         TimeUnit delayUnit=TimeUnit.MINUTES;
-        if(initialDelayinDays==0){
-            initialDelay = 10;
-            delayUnit = TimeUnit.MINUTES;
-        }else if(initialDelayinDays>0){
-            initialDelay = initialDelayinDays;
-            delayUnit = TimeUnit.DAYS;
+
+        if(initialDelayinDays>0){
+            //if enrollment is in Morning
+            if (dateCurrent.getHours() >= 6 && dateCurrent.getHours() <= 11
+                    && preferredNotificationTime.equals("Any Time")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                        "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 6 && dateCurrent.getHours() <= 11
+                    && preferredNotificationTime.equals("Morning")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+
+            else if (dateCurrent.getHours() >= 6 && dateCurrent.getHours() <= 11
+                    && preferredNotificationTime.equals("Afternoon")) {
+
+                initialDelay = (initialDelayinDays*24)+4;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 6 && dateCurrent.getHours() <= 11
+                    && preferredNotificationTime.equals("Evening")) {
+
+                initialDelay = (initialDelayinDays*24)+10;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            //if enrollment is in Afternoon
+            else if (dateCurrent.getHours() >= 12 && dateCurrent.getHours() <= 16
+                    && preferredNotificationTime.equals("Any Time")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 12 && dateCurrent.getHours() <= 16
+                    && preferredNotificationTime.equals("Morning")) {
+
+                initialDelay = (initialDelayinDays*24) + 20;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+
+            else if (dateCurrent.getHours() >= 12 && dateCurrent.getHours() <= 16
+                    && preferredNotificationTime.equals("Afternoon")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 12 && dateCurrent.getHours() <= 16
+                    && preferredNotificationTime.equals("Evening")) {
+
+                initialDelay = (initialDelayinDays*24)+4;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            //if enrollment is in Evening
+            else if (dateCurrent.getHours() >= 17 && dateCurrent.getHours() <= 23
+                    && preferredNotificationTime.equals("Any Time")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 17 && dateCurrent.getHours() <= 23
+                    && preferredNotificationTime.equals("Morning")) {
+
+                initialDelay = (initialDelayinDays*24) + 16;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+
+            else if (dateCurrent.getHours() >= 12 && dateCurrent.getHours() <= 16
+                    && preferredNotificationTime.equals("Afternoon")) {
+
+                initialDelay = (initialDelayinDays*24)+20;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 12 && dateCurrent.getHours() <= 16
+                    && preferredNotificationTime.equals("Evening")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            //if enrollment is in Night
+            else if (dateCurrent.getHours() >= 0 && dateCurrent.getHours() <= 5
+                    && preferredNotificationTime.equals("Any Time")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 0 && dateCurrent.getHours() <= 5
+                    && preferredNotificationTime.equals("Morning")) {
+
+                initialDelay = (initialDelayinDays*24) + 12;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+
+            else if (dateCurrent.getHours() >= 0 && dateCurrent.getHours() <= 5
+                    && preferredNotificationTime.equals("Afternoon")) {
+
+                initialDelay = (initialDelayinDays*24)+16;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 0 && dateCurrent.getHours() <= 5
+                    && preferredNotificationTime.equals("Evening")) {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (dateCurrent.getHours() >= 0 && dateCurrent.getHours() <= 5
+                    && preferredNotificationTime.equals("Evening")) {
+
+                initialDelay = initialDelayinDays * 24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: " + preferredNotificationTime + "\n" +
+                                "Hours left: " + initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+
+                initialDelay = initialDelayinDays*24;
+                delayUnit = TimeUnit.HOURS;
+
+                Toast.makeText(WelcomeActivity.this,
+                        "Notification Time: "+ preferredNotificationTime+"\n"+
+                                "Hours left: "+initialDelay,
+                        Toast.LENGTH_LONG).show();
+            }
+
         }else {
             Toast.makeText(WelcomeActivity.this,
                     "Child age is bigger than required age for this application. App will not work properly",
