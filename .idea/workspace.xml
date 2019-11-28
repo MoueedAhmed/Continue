@@ -16,18 +16,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gun0912_ted_tedpermission_2_2_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gun0912_ted_tedpermission_2_2_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__sun_bob_mcalendarview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__sun_bob_mcalendarview_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/WelcomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/WelcomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/app/build/" />
@@ -40,7 +31,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="B5M5T18731000192" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -49,44 +40,19 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/WelcomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="565" column="5" selection-start-line="565" selection-start-column="5" selection-end-line="565" selection-end-column="5" />
+            <state relative-caret-position="3978">
+              <caret line="370" column="38" selection-start-line="370" selection-start-column="38" selection-end-line="370" selection-end-column="38" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4870#14138#1" />
-                <element signature="e#5059#5410#1" />
-                <element signature="e#5560#5919#1" />
-                <element signature="e#6072#6435#1" />
-                <element signature="e#6585#6949#1" />
-                <element signature="e#7145#7504#1" />
-                <element signature="e#7655#8021#1" />
-                <element signature="e#8175#8534#1" />
-                <element signature="e#8685#9048#1" />
-                <element signature="e#9242#9601#1" />
-                <element signature="e#9752#10118#1" />
-                <element signature="e#10272#10636#1" />
-                <element signature="e#10787#11146#1" />
-                <element signature="e#11336#11695#1" />
-                <element signature="e#11844#12210#1" />
-                <element signature="e#12362#12726#1" />
-                <element signature="e#12875#13234#1" />
-                <element signature="e#13383#13750#1" />
-                <element signature="e#13768#14127#1" />
-                <element signature="e#14143#14360#1" />
                 <element signature="method#syncWithFirebaseDatabase#0;class#WelcomeActivity#0" />
                 <element signature="method#addWelcomeMessages#0;class#WelcomeActivity#0" />
                 <element signature="method#insertEnrollmentToFirebase#0;class#WelcomeActivity#0" />
                 <element signature="method#checkCombinationAndSetContentIdentifierSharedPref#0;class#WelcomeActivity#0" />
                 <element signature="method#setWelcomeTextViewMessage#0;class#WelcomeActivity#0" />
                 <element signature="method#downloadContent#0;class#WelcomeActivity#0" />
-                <element signature="e#25199#25539#0" expanded="true" />
-                <element signature="e#25538#25539#0" expanded="true" />
-                <element signature="e#25647#25913#0" expanded="true" />
-                <element signature="e#25912#25913#0" expanded="true" />
                 <element signature="method#createChannel#0;class#WelcomeActivity#0" />
               </folding>
             </state>
@@ -170,7 +136,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -197,6 +162,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
@@ -327,7 +293,7 @@
       <window_info anchor="bottom" id="Terminal" order="5" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5012029" side_tool="true" weight="0.18347107" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.49879712" visible="true" weight="0.18330605" />
+      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.49879712" weight="0.18330605" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.3289256" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Gradle" order="1" />
@@ -335,7 +301,7 @@
       <window_info anchor="right" id="Preview" order="3" sideWeight="0.49917355" weight="0.28651237" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Assistant" order="5" weight="0.3290469" />
-      <window_info anchor="right" id="Device File Explorer" order="6" sideWeight="0.5008264" side_tool="true" weight="0.32960895" />
+      <window_info anchor="right" id="Device File Explorer" order="6" sideWeight="0.5008264" side_tool="true" weight="0.3290469" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -367,12 +333,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/local_notification_data_item.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="33" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="33" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -426,8 +392,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notification.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/db/LocalNotificationDataDao.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -440,7 +406,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_about.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
@@ -450,18 +415,19 @@
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/main/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -481,12 +447,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_notification_detail.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
           <caret line="106" column="58" selection-start-line="106" selection-start-column="58" selection-end-line="106" selection-end-column="58" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/worker/WeeklyNotificationWorker.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -525,7 +491,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_schedule.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
@@ -546,6 +511,7 @@
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/policy.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -643,12 +609,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/Item.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_enrollment.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="134" column="52" selection-start-line="134" selection-start-column="52" selection-end-line="134" selection-end-column="52" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/main/fragment/ResourceFragment.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -658,12 +624,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_resource.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/EnrollmentActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -685,40 +651,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/amoueed/continueapp/WelcomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="565" column="5" selection-start-line="565" selection-start-column="5" selection-end-line="565" selection-end-column="5" />
+        <state relative-caret-position="3978">
+          <caret line="370" column="38" selection-start-line="370" selection-start-column="38" selection-end-line="370" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4870#14138#1" />
-            <element signature="e#5059#5410#1" />
-            <element signature="e#5560#5919#1" />
-            <element signature="e#6072#6435#1" />
-            <element signature="e#6585#6949#1" />
-            <element signature="e#7145#7504#1" />
-            <element signature="e#7655#8021#1" />
-            <element signature="e#8175#8534#1" />
-            <element signature="e#8685#9048#1" />
-            <element signature="e#9242#9601#1" />
-            <element signature="e#9752#10118#1" />
-            <element signature="e#10272#10636#1" />
-            <element signature="e#10787#11146#1" />
-            <element signature="e#11336#11695#1" />
-            <element signature="e#11844#12210#1" />
-            <element signature="e#12362#12726#1" />
-            <element signature="e#12875#13234#1" />
-            <element signature="e#13383#13750#1" />
-            <element signature="e#13768#14127#1" />
-            <element signature="e#14143#14360#1" />
             <element signature="method#syncWithFirebaseDatabase#0;class#WelcomeActivity#0" />
             <element signature="method#addWelcomeMessages#0;class#WelcomeActivity#0" />
             <element signature="method#insertEnrollmentToFirebase#0;class#WelcomeActivity#0" />
             <element signature="method#checkCombinationAndSetContentIdentifierSharedPref#0;class#WelcomeActivity#0" />
             <element signature="method#setWelcomeTextViewMessage#0;class#WelcomeActivity#0" />
             <element signature="method#downloadContent#0;class#WelcomeActivity#0" />
-            <element signature="e#25199#25539#0" expanded="true" />
-            <element signature="e#25538#25539#0" expanded="true" />
-            <element signature="e#25647#25913#0" expanded="true" />
-            <element signature="e#25912#25913#0" expanded="true" />
             <element signature="method#createChannel#0;class#WelcomeActivity#0" />
           </folding>
         </state>

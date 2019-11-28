@@ -370,13 +370,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void addWelcomeMessages() {
         welcomeMessages = new Hashtable<>();
-        welcomeMessages.put("u", "آغا خان یونیورسٹی کی طرف سے ہر ہفتے آپ کو پیغام ملتا رہے گا" +
+        welcomeMessages.put("u", "پروجیکٹ کنٹینیو کی طرف سے ہر ہفتے آپ کو پیغام ملتا رہے گا" +
                 " بچوں کو تمام حفاظتی ٹیکے وقت پر لگوائیں");
-        welcomeMessages.put("ru", "Aga Khan University  ki taraf se Har hafte ap ko paigham milta rhega." +
+        welcomeMessages.put("ru", "Project CoNTINuE  ki taraf se Har hafte ap ko paigham milta rhega." +
                 " Bacho  ko tamam Hifazati tekay waqt per lagwaye");
-        welcomeMessages.put("s", "آغا خان يونيورسٽي  جي طرف کان هر هفتي توهان کي " +
+        welcomeMessages.put("s", "پروجیکٹ کنٹینیو  جي طرف کان هر هفتي توهان کي " +
                 " پيغام ملندو رهندو، ٻارن جي لاءِ ضروري آهي ته تمام حفاظتي ٽڪا وقت تي لڳرايا وڃن");
-        welcomeMessages.put("rs", "Aga Khan university  jay taraf kan har haftay tawan kay pegham milando" +
+        welcomeMessages.put("rs", "Project CoNTINuE  jay taraf kan har haftay tawan kay pegham milando" +
                 " rehando, baran kay sabhi hifazti teeka wakt tay lagayo.");
     }
 
