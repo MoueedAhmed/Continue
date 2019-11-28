@@ -2,6 +2,7 @@ package com.amoueed.continueapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -64,6 +65,7 @@ public class EnrollmentActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enrollment);
+        setTitle("CoNTINuE");
 
         mode_spinner = findViewById(R.id.mode_spinner);
         language_spinner = findViewById(R.id.language_spinner);

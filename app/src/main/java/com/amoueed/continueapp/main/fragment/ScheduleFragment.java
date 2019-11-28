@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -102,25 +103,25 @@ public class ScheduleFragment extends Fragment {
         TextView vaccine_20_tv = rootView.findViewById(R.id.vaccine_20_tv);
         TextView date_20_tv = rootView.findViewById(R.id.date_20_tv);
 
-        circle_6_tv.setText(c6.get(Calendar.DATE)+"");
+        circle_6_tv.setText(c6.get(Calendar.DATE)+" "+getMonthForInt(c6.get(Calendar.MONTH)));
         vaccine_6_tv.setText("6th week vaccine");
         Date d6 = c6.getTime();
         DateFormat df6 = new SimpleDateFormat("dd-MMM-yyyy");
         date_6_tv.setText(df6.format(d6));
 
-        circle_10_tv.setText(c10.get(Calendar.DATE)+"");
+        circle_10_tv.setText(c10.get(Calendar.DATE)+" "+getMonthForInt(c10.get(Calendar.MONTH)));
         vaccine_10_tv.setText("10th week vaccine");
         Date d10 = c10.getTime();
         DateFormat df10 = new SimpleDateFormat("dd-MMM-yyyy");
         date_10_tv.setText(df10.format(d10));
 
-        circle_14_tv.setText(c14.get(Calendar.DATE)+"");
+        circle_14_tv.setText(c14.get(Calendar.DATE)+" "+getMonthForInt(c14.get(Calendar.MONTH)));
         vaccine_14_tv.setText("14th week vaccine");
         Date d14 = c14.getTime();
         DateFormat df14 = new SimpleDateFormat("dd-MMM-yyyy");
         date_14_tv.setText(df14.format(d14));
 
-        circle_20_tv.setText(c20.get(Calendar.DATE)+"");
+        circle_20_tv.setText(c20.get(Calendar.DATE)+" "+getMonthForInt(c20.get(Calendar.MONTH)));
         vaccine_20_tv.setText("20th week vaccine");
         Date d20 = c20.getTime();
         DateFormat df20 = new SimpleDateFormat("dd-MMM-yyyy");
@@ -162,6 +163,16 @@ public class ScheduleFragment extends Fragment {
         SharedPreferences sharedPref = getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
         String childMR = sharedPref.getString("mr_number","");
         mDatabase.child("app_data").child(childMR).child("ScheduleFragment").push().setValue(model);
+    }
+
+    String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num].substring(0,3);
+        }
+        return month;
     }
 
 }

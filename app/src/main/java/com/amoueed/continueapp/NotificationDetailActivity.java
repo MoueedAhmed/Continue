@@ -83,7 +83,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
         fileName = intent.getStringExtra("file_name");
 
         setContentView(R.layout.activity_notification_detail);
-        setTitle("CoNTiNuE");
+        setTitle("CoNTINuE");
 
         mDb = AppDatabase.getInstance(getApplicationContext());
         AppExecutors.getInstance().diskIO().execute(new Runnable() {

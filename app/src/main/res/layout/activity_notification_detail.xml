@@ -55,7 +55,7 @@
                         android:id="@+id/more_text_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Show more message" />
+                        android:text="Show Next message" />
 
                 </LinearLayout>
 

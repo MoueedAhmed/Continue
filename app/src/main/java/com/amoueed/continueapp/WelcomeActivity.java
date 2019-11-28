@@ -1,6 +1,7 @@
 package com.amoueed.continueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -70,6 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        setTitle("CoNTINuE");
 
         getDataFromIntent();
         contentType = checkCombinationAndSetContentIdentifierSharedPref(mode, language, barrier);
