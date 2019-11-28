@@ -52,9 +52,8 @@ public class WeeklyNotificationWorker extends Worker {
         else{
             insertLocalNotificationData("wav");
         }
-
-        // Deliver the notification.
-        deliverNotification(ctx);
+//        // Deliver the notification.
+//        deliverNotification(ctx);
         return Result.success();
     }
 
@@ -100,6 +99,7 @@ public class WeeklyNotificationWorker extends Worker {
                     }
                     br.close();
                     addLocalNotificationDataEntryToDB("CoNTINuE",text.substring(0,50)+"......",file_name);
+                    deliverNotification(ctx);
                 } catch (IOException e) {
                     Log.e("Worker",e.getMessage());
                 }
@@ -107,6 +107,7 @@ public class WeeklyNotificationWorker extends Worker {
             else{
                 String file_name = count+"."+extension;
                 addLocalNotificationDataEntryToDB("CoNTINuE","You have audio message",file_name);
+                deliverNotification(ctx);
             }
         }
 
