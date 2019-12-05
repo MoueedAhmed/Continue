@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WelcomeActivity" android:screenOrientation="portrait" ></activity>
-        <activity android:name=".NotificationDetailActivity" />
+        <activity android:name=".NotificationDetailActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".PolicyActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".ui.SuccessActivity"></activity>
-        <activity android:name=".EnrollmentActivity" />
+        <activity android:name=".ui.SuccessActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".EnrollmentActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".main.MainActivity"
             android:label="@string/title_activity_main"
