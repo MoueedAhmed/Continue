@@ -22,11 +22,13 @@ import java.util.Locale;
 import static androidx.core.content.ContextCompat.getColor;
 
 public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNotificationDataAdapter.LocalNotificationDataViewHolder>{
-    private static final String DATE_FORMAT = "dd/MM/yyy";
+    private static final String DATE_FORMAT = "dd-MMM-yyy";
+    private static final String TIME_FORMAT = "hh:mm a";
     final private ItemClickListener mItemClickListener;
     private Context mContext;
     private List<LocalNotificationDataEntry> mEntries;
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+    private SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, Locale.getDefault());
 
     public LocalNotificationDataAdapter(Context context, ItemClickListener listener) {
         mContext = context;
@@ -48,12 +50,13 @@ public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNoti
         String notification_type = entry.getNotification_type();
         String content = entry.getContent();
         String updatedAt = dateFormat.format(entry.getUpdatedAt());
+        String updatedAtTime = timeFormat.format(entry.getUpdatedAt());
         int read_flag = entry.getFlag();
 
 
         //Set values
         holder.notification_type_tv.setText(notification_type);
-        holder.date_tv.setText(updatedAt);
+        holder.date_tv.setText(updatedAt+"\n"+updatedAtTime);
         holder.content_tv.setText(content);
 
         if(read_flag == 0){
