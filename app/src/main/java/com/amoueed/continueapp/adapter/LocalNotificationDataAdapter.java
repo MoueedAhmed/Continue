@@ -2,6 +2,7 @@ package com.amoueed.continueapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.amoueed.continueapp.db.LocalNotificationDataEntry;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import static androidx.core.content.ContextCompat.getColor;
 
 public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNotificationDataAdapter.LocalNotificationDataViewHolder>{
     private static final String DATE_FORMAT = "dd/MM/yyy";
@@ -54,8 +57,12 @@ public class LocalNotificationDataAdapter extends RecyclerView.Adapter<LocalNoti
         holder.content_tv.setText(content);
 
         if(read_flag == 0){
-            holder.container_ll.setBackgroundColor(Color.YELLOW);
+            Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+            holder.content_tv.setTypeface(boldTypeface);
+            holder.container_ll.setBackgroundColor(getColor(this.mContext, R.color.lightBlue));
         }else{
+            Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
+            holder.content_tv.setTypeface(boldTypeface);
             holder.container_ll.setBackgroundColor(Color.WHITE);
         }
     }
