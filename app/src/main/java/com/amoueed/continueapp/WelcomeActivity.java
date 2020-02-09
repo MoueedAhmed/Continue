@@ -348,6 +348,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest
+                //TODO change repeatInterval
                 .Builder(WeeklyNotificationWorker.class, 15, TimeUnit.MINUTES)
                 .setInitialDelay(initialDelay,delayUnit)
                 .build();
