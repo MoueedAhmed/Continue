@@ -109,6 +109,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
         // TODO remove Toast
         Toast.makeText(this,fileName+" "+content_identifier,Toast.LENGTH_LONG).show();
+        more_text_btn.setVisibility(View.GONE);
 
         if (getExtension(fileName).equals("txt")) {
             //logic to handle different notifications layout
