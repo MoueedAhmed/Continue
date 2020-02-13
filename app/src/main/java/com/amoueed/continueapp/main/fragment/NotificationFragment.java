@@ -69,7 +69,7 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
         View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
 
 //        SharedPreferences sharedPref =getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
-//        String content_identifier = sharedPref.getString("content_identifier","");
+////        String content_identifier = sharedPref.getString("content_identifier","");
 //        if(content_identifier.startsWith("t")){
 //            insertLocalNotificationData("txt");
 //        }
@@ -149,10 +149,17 @@ public class NotificationFragment extends Fragment implements LocalNotificationD
 
     @Override
     public void onItemClickListener(int itemId) {
-        Intent in = new Intent(getActivity(), NotificationDetailActivity.class);
+
+        SharedPreferences sharedPref =getContext().getSharedPreferences("content_identifier", Context.MODE_PRIVATE);
+        String content_identifier = sharedPref.getString("content_identifier","");
         List<LocalNotificationDataEntry> entries = mAdapter.getEntries();
         LocalNotificationDataEntry entry = entries.get(itemId);
-        in.putExtra("file_name",entry.getFile_name());
+        String file_name = entry.getFile_name();
+
+        Intent in = new Intent(getActivity(), NotificationDetailActivity.class);
+
+        in.putExtra("file_name",file_name);
+        in.putExtra("content_identifier",content_identifier);
         startActivity(in);
     }
 

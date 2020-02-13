@@ -36,6 +36,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
     private Intent intent;
     private String fileName;
+    private String content_identifier;
     private TextView info_text;
     private LinearLayout audio_control_ll;
 
@@ -81,7 +82,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
         intent = getIntent();
         fileName = intent.getStringExtra("file_name");
-
+        content_identifier = intent.getStringExtra("content_identifier");
         setContentView(R.layout.activity_notification_detail);
         setTitle("CoNTINuE");
 
@@ -104,10 +105,24 @@ public class NotificationDetailActivity extends AppCompatActivity {
         more_text_btn = findViewById(R.id.more_text_btn);
         info_0_text = findViewById(R.id.info_0_text);
         info_1_text = findViewById(R.id.info_1_text);
-
         new_audio_btn = findViewById(R.id.new_audio_btn);
 
+        // TODO remove Toast
+        Toast.makeText(this,fileName+" "+content_identifier,Toast.LENGTH_LONG).show();
+
         if (getExtension(fileName).equals("txt")) {
+            //logic to handle different notifications layout
+            if(!fileName.equals("10.txt") && !fileName.equals("14.txt")){
+
+                if(!content_identifier.contains("reminder")){
+                    more_text_btn.setVisibility(View.VISIBLE);
+                }else{
+                    if(!fileName.equals("9.txt") && !fileName.equals("13.txt") && !fileName.equals("15.txt")){
+                        more_text_btn.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
             more_text_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,6 +152,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             Toast.makeText(NotificationDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
+
                     }else if(count_more_text_btn == 1){
                         read_1 = "Yes";
                         info_1_text.setVisibility(View.VISIBLE);
@@ -194,7 +210,18 @@ public class NotificationDetailActivity extends AppCompatActivity {
             info_text.setVisibility(View.GONE);
             more_text_btn.setVisibility(View.GONE);
             audio_control_ll.setVisibility(View.VISIBLE);
-            new_audio_btn.setVisibility(View.VISIBLE);
+
+            //logic to handle different notifications layout
+            if(!fileName.equals("10.wav") && !fileName.equals("14.wav")){
+
+                if(!content_identifier.contains("reminder")){
+                    new_audio_btn.setVisibility(View.VISIBLE);
+                }else{
+                    if(!fileName.equals("9.wav") && !fileName.equals("13.wav") && !fileName.equals("15.wav")){
+                        new_audio_btn.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
 
             new_audio_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
